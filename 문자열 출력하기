@@ -1,0 +1,10 @@
+#include <stdio.h>
+#define LEN_INPUT 1000001
+
+int main(void) {
+    char s1[LEN_INPUT];
+    scanf("%s", s1);  // 문자열 입력
+    printf(s1);  // 문자열 출력
+
+    return 0;
+}
