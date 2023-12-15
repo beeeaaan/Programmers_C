@@ -1,0 +1,12 @@
+#include <stdio.h>
+
+int main(void) {
+    int a;
+    int b;
+    
+    // 입력
+    scanf("%d %d", &a, &b);
+    // 출력
+     printf("a = %d\nb = %d", a, b);
+    return 0;
+}
