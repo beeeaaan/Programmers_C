@@ -1,0 +1,10 @@
+#include <stdio.h>
+
+int main(void) {
+    int a;
+    int b;
+    
+    scanf("%d %d", &a, &b);  // 입력
+    printf("%d + %d = %d", a, b, a + b);  // 출력
+    return 0;
+}
