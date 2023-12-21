@@ -1,0 +1,15 @@
+#include <stdio.h>
+#define LEN_INPUT 11
+
+int main(void) {
+    char s1[LEN_INPUT];
+    int len, i;
+    scanf("%s", s1);  // 입력
+    len = strlen(s1);
+	
+    // 위에서 구한 문자열 길이만큼 반복
+    for (i = 0; i < len; i++) {
+        printf("%c\n", s1[i]);  // 출력
+    }
+    return 0;
+}
