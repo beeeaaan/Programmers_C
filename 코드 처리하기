@@ -1,0 +1,37 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(string code) {
+    string answer = "";
+    int mode = 0;
+    
+    for(int idx = 0; idx < code.length(); idx++) {
+        // mode가 0일 때
+        if(mode == 0) {
+            if(code[idx] != '1') {  // code[idx]가 "1"이 아니면
+                if(idx % 2 == 0) {  // idx가 짝수일 때만
+                    answer += code[idx];  // ret의 맨 뒤에 code[idx]를 추가
+                }
+            } else {  // code[idx]가 "1"이면
+                mode = 1;
+            }
+        } else {  // mode가 1일 때
+            if(code[idx] != '1') {  // code[idx]가 "1"이 아니면
+                if(idx % 2 == 1) {  // idx가 홀수일 때만
+                    answer += code[idx];  // et의 맨 뒤에 code[idx]를 추가
+                }
+            } else {  // code[idx]가 "1"이면
+                mode = 0;
+            }
+        }
+    }
+    
+    if(answer.empty()) {  // ret이 빈 문자열이라면
+        return "EMPTY";
+    } else {
+        return answer;
+    }
+    return answer;
+}
