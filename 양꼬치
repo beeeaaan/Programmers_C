@@ -1,0 +1,11 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+int solution(int n, int k) {
+    int answer = (n * 12000) + (k * 2000);  // 양꼬치(n) : 12000원, 음료수(k) : 2000원 
+    int drinks_free = n / 10;  // 10인분
+    
+    answer -= drinks_free * 2000;  // 10분 먹으면 음료수 하나 서비스  
+    return answer;
+}
