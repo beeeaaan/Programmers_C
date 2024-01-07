@@ -1,0 +1,10 @@
+#include <string>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+int solution(int n) {
+    int root = static_cast<int>(sqrt(n));  // n의 제곱근 계산
+    return root * root == n ? 1 : 2;  // 제곱수 확인
+}
