@@ -1,0 +1,16 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(int n) {
+    int answer = 0;
+    
+    // 7명이 최소 한 조각씩 먹어야 함
+    if(n % 7 == 0){
+        answer = n / 7;}
+    else if(n % 7 != 0){
+        answer = (n / 7) + 1;
+    }
+    return answer;
+}   
