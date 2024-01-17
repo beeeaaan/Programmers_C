@@ -1,0 +1,13 @@
+#include <string>
+#include <vector>
+ 
+using namespace std;
+ 
+vector<int> solution(vector<int> numbers) {
+    
+    // 각 원소 2배한 배열 만들기
+    for(int i = 0; i < numbers.size(); i++) {
+        numbers[i] = numbers[i] * 2;
+    }    
+    return numbers;
+}
