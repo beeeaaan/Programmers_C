@@ -1,0 +1,17 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+ 
+using namespace std;
+ 
+int solution(vector<int> sides) {
+    int answer = 0;
+    sort(sides.begin(), sides.end());  // 크기 순으로 정렬
+    
+    if (sides[0] + sides[1] > sides[2]) {
+        answer = 1;  // 삼각형 만들 수 있으면
+    } else {
+        answer = 2;  // 삼각형 만들 수 없으면
+    }    
+    return answer;
+}
