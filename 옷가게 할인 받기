@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+int solution(int price) {
+    int answer = 0;
+    
+    //  10만 원 이상 사면 5% 할인
+    if(price >= 100000 & price < 300000) {
+        answer = price * 0.95;
+    // 30만 원 이상 사면 10% 할인
+    } else if(price >= 300000 & price < 500000) {
+        answer = price * 0.9;
+    //  50만 원 이상 사면 20% 할인
+    } else if(price >= 500000) {
+        answer = price * 0.8;
+    } else 
+        answer = price;
+    return answer;
+}
