@@ -1,0 +1,9 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+int solution(int n, int t) {
+    int answer = n * pow(2, t);  // pow : 거듭 제곱
+    
+    return answer;
+}
