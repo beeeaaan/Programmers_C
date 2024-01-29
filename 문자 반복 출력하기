@@ -1,0 +1,15 @@
+#include <string>
+#include <vector>
+ 
+using namespace std;
+ 
+string solution(string my_string, int n) {
+    string answer = "";
+    
+    for (int i = 0; i < my_string.length(); i++) {  // i번째 글자
+        for(int j = 0; j < n; j++) {  // n번만큼
+            answer += my_string[i];  // answer 추가
+        }
+    }
+    return answer;
+}
