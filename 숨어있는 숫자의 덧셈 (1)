@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <string.h>
+
+int solution(const char* my_string) {
+    int answer = 0;
+    
+    // 아스키 코드 값 계산(1 ~ 9까지만 answer 배열 저장)
+    for(int i = 0; i < strlen(my_string); i++) {
+        if(my_string[i] > '0' && my_string[i] <= '9') {
+            answer += my_string[i] - '0';
+        }   
+    }
+      
+    return answer;
+}
