@@ -1,0 +1,10 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(int number, int n, int m) {
+    // 배수일 경우 딱 떨어지므로 나머지로 계산
+    int answer = (number % n == 0) && (number % m == 0) ? 1 : 0;
+    return answer;
+}
