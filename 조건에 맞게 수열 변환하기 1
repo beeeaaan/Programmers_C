@@ -1,0 +1,13 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> solution(vector<int> arr) {
+    for_each(arr.begin(), arr.end(), [](auto& a){
+        if(a >= 50 && a % 2 == 0) a /= 2;  // 50보다 크거란 같은 짝수
+        else if(a < 50 && a % 2 == 1) a *= 2;  // 50보다 작은 홀수
+    });
+    return arr;
+}
