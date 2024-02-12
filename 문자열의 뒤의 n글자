@@ -1,0 +1,9 @@
+#include <string>
+
+using namespace std;
+
+string solution(string my_string, int n) {
+    // 2. substr(시작인덱스) : 시작인덱스 부터 문자열 끝까지 추출
+    string answer = my_string.substr(my_string.size() - n);
+    return answer;
+}
