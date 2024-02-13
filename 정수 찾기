@@ -1,0 +1,10 @@
+#include <vector>
+
+using namespace std;
+
+int solution(vector<int> num_list, int n) {
+    for(int i = 0; i < num_list.size(); ++i) {
+        if(n == num_list[i]) return 1;  // num_list 안에 n이 있으면
+    }
+    return 0;
+}
