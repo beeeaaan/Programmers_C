@@ -1,0 +1,16 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(vector<int> num_list) {
+    int x = num_list.size();
+    int y = num_list[x - 1] - num_list[x - 2];  // 마지막 원소 - 그 전 원소
+    
+    if(y > 0)  // 마지막 원소가 그 전 원소보다 클 경우
+        num_list.emplace_back(y);
+    else  // 마지막 원소가 그 전 원소보다 작을 경우
+        num_list.emplace_back(num_list[x - 1] * 2);  // 마지막 원소 * 2
+    
+    return num_list;
+}
