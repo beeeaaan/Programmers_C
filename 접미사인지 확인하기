@@ -1,0 +1,16 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(string my_string, string is_suffix) {
+    // is_suffix가 my_string의 어디에 위치하는지 찾기
+    size_t x = my_string.rfind(is_suffix);  // rfind : 뒤에서부터 문자열 검색
+    
+    // is_suffix가 my_string의 끝에서 시작하는지 확인
+    if(x != string::npos && x == my_string.size() - is_suffix.size()) {  // string::npos : 문자열 찾기
+        return 1;
+    } else {
+        return 0;
+    }
+}
