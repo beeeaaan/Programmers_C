@@ -1,0 +1,16 @@
+#include <string>
+#include <vector>
+#include <sstream>
+
+using namespace std;
+
+vector<string> solution(string my_string) {
+    vector<string> answer;
+    stringstream str(my_string);
+    string tmp;
+    
+    while(str >> tmp) {  // >>(오른쪽 시프트 연산자) : 각 비트를 오른쪽으로 이동
+        answer.emplace_back(tmp);
+    }
+    return answer;
+}
