@@ -1,0 +1,15 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(string my_string) {
+    for(auto& v : my_string) {
+        if(islower(v)) {  // islower : 소문자 확인
+            v = toupper(v);  // toupper : 대문자 변환
+        } else {
+            v = tolower(v);  // tlower : 소문자 변환
+        }
+    }
+    return my_string;
+}
