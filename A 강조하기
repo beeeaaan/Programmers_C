@@ -1,0 +1,15 @@
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+string solution(string myString) {
+    string answer;    
+    transform(myString.begin(), myString.end(), myString.begin(), ::tolower);  // transform 사용하여 소문자로 변환
+    
+    for(int i = 0 ; i < myString.size(); ++i) {
+        if (myString[i] == 'a') answer += 'A';  // 알파벳 a일 경우 소문자를 대문자로 변환
+        else answer += myString[i];
+    }
+    return answer;
+}
