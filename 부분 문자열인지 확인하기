@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+
+int solution(const char* my_string, const char* target) {
+    int my_len = strlen(my_string);
+    int target_len = strlen(target);
+
+    for (int i = 0; i <= my_len - target_len; i++) {
+        int j;
+        for (j = 0; j < target_len; j++) {
+            if (my_string[i + j] != target[j]) {
+                break;
+            }
+        } if (j == target_len) {
+            return 1;  // 부분 문자열일 경우
+        }
+    }
+    return 0;  // 부분 문자열이 아닐경우
+}
