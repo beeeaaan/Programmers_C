@@ -1,0 +1,14 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(int hp) {
+    int answer = 0;
+    int i = hp / 5;  // 장군개미 수
+    int j = (hp % 5) / 3;  // 병정개미 수
+    int k = (hp % 5) % 3;  // 일개미 수
+    
+    answer = i + j + k;
+    return answer;
+}
