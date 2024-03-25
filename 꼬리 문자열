@@ -1,0 +1,15 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(vector<string> str_list, string ex) {
+    string answer = "";
+    
+    for(const auto&str : str_list) {  // auto str : 문자열 객체 자동 생성
+        if(str.find(ex) == string::npos) {  // find : 특정 값 검색
+            answer += str;
+        }
+    }
+    return answer;
+}
