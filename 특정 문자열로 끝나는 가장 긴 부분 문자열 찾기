@@ -1,0 +1,16 @@
+#include <string>
+
+using namespace std;
+
+string solution(string myString, string pat) {
+    string answer = "";
+    
+    for(int i = myString.size() - pat.size(); i >= 0; --i) {
+        if(pat == myString.substr(i, pat.size())) {
+            // substr(시작인덱스, 문자열 길이) : 시작인덱스 부터 주어진 문자열 길이만큼 추출
+            answer += myString.substr(0, i + pat.size());
+            break;
+        }
+    }
+    return answer;
+}
