@@ -1,0 +1,15 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(string my_string, int num1, int num2) {
+    string answer = "";
+    
+    char x = my_string[num1];
+    // num1과 num2의 인덱스 서로 바꾸기
+    my_string[num1] = my_string[num2];
+    my_string[num2] = x;
+    
+    return my_string;
+}
