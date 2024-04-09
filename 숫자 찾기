@@ -1,0 +1,17 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(int num, int k) {
+    int answer = -1;
+    string x = to_string(num);  // 숫자 문자열로 변환
+    
+    for(int i = 0; i < x.size(); i++) {
+        if(x[i] - '0' == k) {  // 같은지 확인
+            answer = i + 1;
+            break;
+        }
+    }    
+    return answer;
+}
