@@ -1,0 +1,15 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+string solution(string my_string, vector<int> indices) {
+    string answer = "";
+    
+    for(int i = 0; i < my_string.size(); ++i) {
+        // find(v.begin(), v.end(), 찾을 대상) : vector내 해당 원소가 존재하는지 확인
+        if(find(indices.begin(), indices.end(), i) == indices.end()) answer += my_string[i];
+    }
+    return answer;
+}
