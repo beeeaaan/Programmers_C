@@ -1,0 +1,18 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(string before, string after) {
+    int answer = 1;
+    
+    // 정렬
+    sort(before.begin(), before.end());
+    sort(after.begin(), after.end());
+    
+    // before 순서 바꾸어 after 만들 수 있으면 1, 없으면 0
+    if(before != after) answer = 0;
+    
+    return answer;
+}
