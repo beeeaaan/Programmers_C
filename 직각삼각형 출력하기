@@ -1,0 +1,17 @@
+#include <iostream>
+
+using namespace std;
+
+int main(void) {
+    int n;
+    cin >> n;
+    
+    // 별 개수 순차적으로 출력
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j <= i; j++)
+            cout << "*";
+        cout << "\n";
+    }
+    
+    return 0;
+}
