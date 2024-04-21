@@ -1,0 +1,16 @@
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(vector<int> arr) {
+    vector<int> check;
+    
+    for(int i = 0; i < arr.size(); ++i) {
+        if(arr[i] == 2) check.push_back(i);  // 가장 작은 연속된 부분 배열을 반환
+        // empty() : string 또는 vector 객체가 비어있으면 1을, 문자열 또는 원소가 저장되어 있으면 0을 반환
+    } if(check.empty()) return {-1};
+    else {
+        // 2가 있으면 해당 인덱스 check
+        return vector<int>(arr.begin() + check[0], arr.begin() + check[check.size() - 1] + 1);
+    }
+}
