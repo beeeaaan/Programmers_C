@@ -1,0 +1,15 @@
+using namespace std;
+
+int solution(int chicken) {
+    int service = 0;
+    int answer = 0;
+    
+    while(1) {
+        if(chicken < 10) break;  // 쿠폰 열장
+        service = chicken % 10;
+        chicken /= 10;
+        answer += chicken;  // 한마리당 쿠폰 발급
+        chicken += service;  // 서비스
+    }
+    return answer;
+}
