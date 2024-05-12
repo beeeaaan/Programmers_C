@@ -1,0 +1,15 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(int n) {
+    int answer = 0;
+    
+    for(int i = 1; i <= n / 2; i++) {
+        if(n % i == 0) {  // 입력한 수가 i로 나누어 떨어질 경우
+            answer += i;  // 약수이므로 더하기
+        }
+    }
+    return answer + n;  // 자기 자신도 약수에 포함
+}
