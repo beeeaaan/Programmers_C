@@ -1,0 +1,17 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(vector<string> strArr) {
+    vector<int> len(31, 0); 
+    int answer = 0;
+    
+    for(int i = 0; i < strArr.size(); ++i) {
+        len[strArr[i].size()]++;
+        // max(a, b) : a, b 값을 비교하여 큰값을 return
+        answer = max(answer, len[strArr[i].size()]);
+    }
+    return answer;
+}
