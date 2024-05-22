@@ -1,0 +1,18 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(string my_string) {
+    vector<int> answer(52, 0);  // 'A'부터 'z'까지의 개수
+    
+    // 'a'는 아스키 코드 97이고, 대문자의 마지막 인덱스는 25이므로 +1
+    for(int i = 0; i < my_string.size(); ++i) {
+        if('A' <= my_string[i] && my_string[i] <= 'Z') {
+            answer[my_string[i] - 65]++;
+        } else if('a' <= my_string[i] && my_string[i] <= 'z') {
+            answer[my_string[i] - 71]++;
+        }
+    }
+    return answer;
+}
