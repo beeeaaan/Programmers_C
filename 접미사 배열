@@ -1,0 +1,19 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+vector<string> solution(string my_string) {
+    vector<string> answer;
+    string x;
+    
+    for(int i = my_string.size() - 1; i >= 0; --i) {
+        // substr(시작인덱스) : 시작인덱스 부터 문자열 끝까지 추출
+        x = my_string.substr(i);
+        answer.push_back(x);
+    }
+    // sort(T start, T end) : 오름차순 정렬
+    sort(answer.begin(), answer.end());
+    return answer;
+}
