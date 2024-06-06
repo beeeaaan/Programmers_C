@@ -1,0 +1,8 @@
+include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+int solution(const char* s) {
+    int answer = atoi(s);  // atoi : 문자열을 정수로 변환
+    return answer;
+}
