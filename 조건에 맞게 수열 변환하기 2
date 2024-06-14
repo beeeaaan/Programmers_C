@@ -1,0 +1,26 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(vector<int> arr) {
+    int answer = 0;    
+    bool x = false;
+    
+    while(true) {
+        x = false;
+        
+        for(int i = 0; i < arr.size(); i++) {
+            // arr[i]가 50 이상이고 짝수면 2로 나누기
+            if(arr[i] >= 50 && arr[i] % 2 == 0) {
+                arr[i] /= 2; x = true;
+            // arr[i]가 50 미만이고 홀수면 2를 곱하고 1 더하기
+            } else if(arr[i] < 50 && arr[i] % 2 == 1) {
+                arr[i] *= 2; arr[i]++; x = true;
+            }
+        } if(x == false) break;
+        answer++;
+    }  
+    // 연산 후에 연산 전과 모든 원소의 값이 동일하다면 연산 횟수 반환
+    return answer;
+}
