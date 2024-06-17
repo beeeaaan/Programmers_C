@@ -1,0 +1,26 @@
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+string solution(string s) {
+    string answer = "", tmp = "";
+    vector<int> v;
+    
+    // 문자열을 정수로 변환
+    for(int i = 0; i < s.size(); ++i) {
+        if(s[i] == ' ') {
+            v.push_back(stoi(tmp));
+            tmp = "";
+        } else tmp += s[i];
+    }
+    v.push_back(stoi(tmp));
+    
+    // *min_element(v.begin(), v.end()) : 벡터 v에서 최솟값 반환
+    answer += to_string(*min_element(v.begin(), v.end()));
+    answer += ' ';
+    // *max_element(v.begin(), v.end()) : 벡터 v에서 최댓값 반환
+    answer += to_string(*max_element(v.begin(), v.end()));
+    return answer;
+}
