@@ -1,0 +1,19 @@
+#include <string>
+#include <algorithm>
+ 
+using namespace std;
+ 
+bool solution(string s)
+{
+    bool answer = true;    
+    int p = 0, y = 0;
+    transform(s.begin(), s.end(), s.begin(), ::tolower);  // s를 소문자로 변환    
+    
+    for(int i = 0; i < s.length(); i++) {
+        if (s[i] == 'p') p++;  // p 개수
+        else if (s[i] == 'y') y++;  // y 개수
+    } if (p == y) answer = true;  // 개수 비교
+    else answer = false;
+    
+    return answer;
+}
