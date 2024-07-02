@@ -1,0 +1,25 @@
+#include <string>
+#include <iostream>
+#include <stack>
+
+using namespace std;
+
+bool solution(string s)
+{
+    stack<char> Stack;
+       
+    for (char Parenthesis : s) {
+        // '(' 인 경우에만 스택에 push
+        if(Parenthesis == '(')
+            Stack.emplace(Parenthesis);
+        else {
+            if(true == Stack.empty())
+                return false;
+            // ')' 인 경우에는 스택 사이즈 확인 후 pop
+            else
+                Stack.pop();
+        }                        
+    }
+    
+    return Stack.empty();
+}
