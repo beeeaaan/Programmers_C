@@ -1,0 +1,16 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(int a, int b, int n) {
+    int answer = 0;
+    while(1) {
+        // 콜라병이 a보다 작아질때까지 기존 값 더하고 콜라병 수를 a로 나눈 몫과 나머지 더하기
+        if(n < a) break;
+        answer += ((n / a) * b);
+        n = (n / a)* b + n % a;
+    }
+    
+    return answer;
+}
