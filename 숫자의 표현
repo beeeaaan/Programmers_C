@@ -1,0 +1,21 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(int n) {
+    int answer = 1;
+
+    for(int i = 1; i < n; ++i) {
+        int number = i;
+        for(int j = i + 1; j < n; ++j) {
+            number += j;
+            // 초기값으로부터 합계가 n과 같을때까지 더하기
+            if(number == n)
+                ++answer;
+            else if(number > n)
+                break;
+        }
+    }
+    return answer;
+}
