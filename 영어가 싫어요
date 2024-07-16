@@ -1,0 +1,21 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+long long solution(string numbers) {
+    long long answer = 0;
+    vector<string> numbers_str = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+    
+    for(int i = 0; i < 10; i++) {
+        // str.find(문자열) : 문자열 찾기
+        // string::npos : 찾는 문자열 없을 경우 string::npos 반환
+        if(numbers.find(numbers_str[i]) == string::npos) continue;
+        while(numbers.find(numbers_str[i]) != string::npos)
+            // string.replace(교체하고 싶은 문자열의 위치, 교체하고 싶은 문자열의 길이, 새로운 문자열) : : 문자열 내의 특정 부분 문자열을 다른 문자열로 교체
+
+            numbers.replace(numbers.find(numbers_str[i]), numbers_str[i].size(), to_string(i));
+    }
+    answer = stoll(numbers);
+    return answer;
+}
