@@ -1,0 +1,16 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(string s) {
+    vector<int> answer(1, -1);
+    
+    for(int i = 1; i < s.size(); ++i){    
+    // rfind(탐색 문자열, 인덱스 = npos) : 문자열 뒤에서부터 검색해 인자값 문자열을 찾으면 첫번째로 나타는 문자열의 인덱스를 반환, 찾지 못할 경우 -1 반환
+        if(s.rfind(s[i],i - 1) != string::npos){
+            answer.emplace_back(i - s.rfind(s[i], i - 1));
+        } else answer.emplace_back(-1);
+    }
+    return answer;
+}
