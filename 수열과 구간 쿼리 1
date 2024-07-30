@@ -1,0 +1,10 @@
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(vector<int> arr, vector<vector<int>> queries) {
+    for(int i = 0; i < queries.size(); ++i) {  // queries 확인
+        for(int j = queries[i][0]; j <= queries[i][1]; ++j) arr[j]++;  // [s, e] 확인
+    }
+    return arr;
+}
