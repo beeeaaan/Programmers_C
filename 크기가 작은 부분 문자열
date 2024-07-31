@@ -1,0 +1,19 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(string t, string p) {
+    int answer = 0;
+    int p_Len = p.length();
+    
+    for (int i = 0; i <= t.length() - p_Len; i++) {
+        // 문자열.substr(시작 위치, 길이) : 부분 문자열 추출
+        string tmp = t.substr(i, p_Len);
+        // stoi : string to int(문자열을 숫자로 변환)
+        long tmp_Int = stol(tmp), pInt = stol(p);
+        
+        if (tmp_Int <= pInt) answer += 1;
+    }
+    return answer;
+}
