@@ -1,0 +1,24 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(vector<int> arr, vector<vector<int>> queries) {
+    vector<int> answer;
+        int x, min;
+
+    for(int i = 0; i < queries.size(); ++i) {
+        x = 0, min = 1000001;
+        
+        for(int j = queries[i][0]; j <= queries[i][1]; ++j) {
+            // (queries[i][2])보다 크고 min보다 작을 경우, 
+            if(queries[i][2] < arr[j] && arr[j] < min) {
+                min = arr[j];
+                x = 1;
+            }
+        }
+        if(x == 1) answer.push_back(min);  // 답이 있을 경우
+        else answer.push_back(-1);  // 닶이 없을 경우
+    }
+    return answer;
+}
