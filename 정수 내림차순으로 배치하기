@@ -1,0 +1,16 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+long long solution(long long n) {
+    long long answer = 0;
+
+    string str = to_string(n);  // 문자열 변환
+    // sort(v.begin(), v.end(), greater<자료형>()) : 내림차순 정렬
+    sort(str.begin(), str.end(), greater<char>());
+    answer = stoll(str);  // long 정수 변환
+
+    return answer;
+}
