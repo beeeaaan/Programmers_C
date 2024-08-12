@@ -1,0 +1,22 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> solution(vector<string> name, vector<int> yearning, vector<vector<string>> photo) {
+    vector<int> answer;
+    
+    for(int i = 0; i < photo.size(); ++i) {
+        int score = 0;
+        // find(v.begin(), v.end(), 찾을 대상) : vector 내 해당 원소 존재하는지 확인
+        for(int j = 0; j < photo[i].size(); ++j) {
+            if(find(name.begin(), name.end(), photo[i][j]) != name.end()) { // 이름 있을 경우 그리움 점수 추가
+
+                score += yearning[find(name.begin(), name.end(), photo[i][j]) - name.begin()];
+            }
+        }
+        answer.push_back(score);
+    }
+    return answer;
+}
