@@ -1,0 +1,22 @@
+#include <iostream>
+#include <stdio.h>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(vector<int> d, int budget) {
+    int answer = 0;   
+    sort(d.begin(), d.end());  // 최대한 많이 구매하기 위해 금액이 적은 부서부터 정렬하기
+    
+    for(const int i : d) {
+        if(budget < i) {
+            break;
+        }
+        // 금액 차감 후 횟수 더하기
+        budget -= i;
+        answer++;
+    }
+    return answer;
+}
