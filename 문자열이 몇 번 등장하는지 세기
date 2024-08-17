@@ -1,0 +1,14 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(string myString, string pat) {
+    int answer = 0;
+    
+    for(int i = 0; i < myString.size() - pat.size() + 1; ++i) {
+        // str.substr(n, m) : index n에서 시작하는 m개의 문자를 잘라 string으로 반환
+        if(myString.substr(i, pat.size()) == pat) answer++;
+    }    
+    return answer;
+}
