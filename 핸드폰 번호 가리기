@@ -1,0 +1,13 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(string phone_number) {
+    string answer = "";
+    
+    for(int i = 0; i < phone_number.size() - 4; i++)  // 뒷 4자리 제외
+        phone_number[i] = '*';  // '*'으로 가리기
+
+    return answer = phone_number;
+}
