@@ -1,0 +1,19 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int x;
+
+bool cmp(string a, string b) {  // 비교 함수
+	if (a[x] == b[x])  // 지정 인덱스 문자 같을 경우 사전순으로 정렬
+		return a < b;
+	return (a[x] < b[x]);  // 지정 인덱스 문자 비교
+}
+
+vector<string> solution(vector<string> strings, int n) {
+	x = n;
+	sort(strings.begin(), strings.end(), cmp);
+	return strings;
+}
