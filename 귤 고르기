@@ -1,0 +1,23 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(int k, vector<int> tangerine) {
+    int answer = 0;
+    vector<int> check(10000001, 0);
+    
+    // 귤 크기별 개수 세기
+    for(int i = 0; i < tangerine.size(); ++i) {
+        check[tangerine[i]]++;
+    }
+    // void sort(T start, T end, Compare comp); : comp 인자가 공란이면 오름차순 정렬
+    sort(check.rbegin(), check.rend());
+    for(int i = 0; i < check.size(); ++i) {
+        answer++;
+        k -= check[i];
+        if(k <= 0) break;
+    }
+    return answer;
+}
