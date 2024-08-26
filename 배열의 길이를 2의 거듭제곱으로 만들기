@@ -1,0 +1,24 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int count(int n) {
+    int i = 1;
+    
+    // 2의 정수 거듭제곱
+    while(i < n) {
+        i *= 2;
+    }
+    return i;
+}
+
+vector<int> solution(vector<int> arr) {
+    vector<int> answer;
+
+    // resize : 원하는 크기로 재설정
+    int add = count(arr.size());
+    arr.resize(add, 0);
+
+    return arr;
+}
