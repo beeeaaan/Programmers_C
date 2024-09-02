@@ -1,0 +1,27 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(vector<int> rank, vector<bool> attendance) {
+    int answer = 0;
+    vector<pair<int, int>> attended;  // 참여 여부
+    
+    for(int i = 0; i < rank.size(); ++i) {
+        if(attendance[i]) attended.push_back({rank[i], i});  // 등수, 번호 저장
+    }
+    
+    sort(attended.begin(), attended.end());  // 오름차순 정렬
+    // 1등 학생 번호 10000 + 2등 학생 번호 100 + 3등 학생 번호
+    answer = 10000 * attended[0].second + 100 * attended[1].second + attended[2].second;
+
+    return answer;
+}
+
+// pair 클래스 사용법
+template <class T1, class T2> struct pair;
+
+T1 : first, T2 : second
+p.first : p의 첫번째 인자를 반환
+p.second : p의 두번째 인자를 반환
