@@ -1,0 +1,21 @@
+#include <iostream>
+
+using namespace std;
+
+int main(void) {
+
+    // 문자열
+    string message = "___";  // 정답 : Let's go!
+
+    // 줄바꿈
+    cout << "3 __ 2  __ 1" << endl;  // 정답 : \n, \n
+    cout << message << endl;
+
+    return 0;
+}
+
+<출력 예시>
+3
+2
+1
+Let's go!
