@@ -1,0 +1,20 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(vector<int> common) {
+    int answer = 0;
+    
+    if (common[1] - common[0] != common[2] - common[1]) {  // 배열이 등차수열일 경우
+        return common[common.size() - 1] * (common[1] / common[0]);
+    } else {  // 배열이 등비수열일 경우
+        if((common[0] < 0 && common[1] > 0) || (common[0] > 0 && common[1] < 0)) {  // 공비가 음수일 경우
+            return common[common.size() - 1] * (common[1] / common[0]);
+        } else if(common[0] == 0 && common[1] == 0) {  // 원소가 모두 0일 경우
+            return common[common.size() - 1] * (common[1] / common[0]);
+        } else // 공비가 양수일 경우
+            return common[common.size() - 1] + (common[1] - common[0]);
+    }
+    return answer;
+}
