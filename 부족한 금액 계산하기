@@ -1,0 +1,13 @@
+#include <algorithm>
+
+using namespace std;
+
+long long solution(int price, int money, int count)
+{
+    long long sum = 0;
+
+    for(int i = 1; i <= count ; i++){
+        sum += price * i;  // n번째 이용하면 원래 이용료의 n배 증가  
+    }
+    return money >= sum ? 0 : sum - money;
+}
