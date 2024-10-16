@@ -1,0 +1,20 @@
+#include <iostream>
+#include<string>
+#include <stack>
+
+using namespace std;
+
+int solution(string s)
+{
+    stack<char> str;
+    
+    for (int i = 0; i < s.length(); i++) {
+        //스택이 비어있거나 top과 현재글자가 다를 경우 push
+        if (str.empty() || str.top() != s[i])    str.push(s[i]);
+        // top과 현재글자가 같을 경우 pop
+        else if (str.top() == s[i])        str.pop();
+    }
+    // stack이 비어있을 경우 모두 제거되었음을 의미
+    if (str.empty())    return 1;
+    return 0;
+}
