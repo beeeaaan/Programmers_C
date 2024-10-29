@@ -1,0 +1,24 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(vector<int> arr) {
+    vector<int> answer;
+    
+    for(int i = 0; i < arr.size(); i++) {
+        // 비어있을 경우 arr[i] 추가
+        if(answer.size() == 0)answer.push_back(arr[i]);
+
+        // 비어있지 않고 answer의 마지막 원소와 arr[i]의 마지막 원소 같을 경우 마지막 원소 제거
+        else if(answer[answer.size() - 1] == arr[i]) {
+            answer.erase(answer.begin() + answer.size() - 1);
+
+            // 아닐 경우 arr[i] 추가
+        } else {
+            answer.push_back(arr[i]);
+        }
+    }
+    if(answer.empty())answer.push_back(-1);
+    return answer;
+}
