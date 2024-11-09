@@ -1,0 +1,14 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(string s) {
+    string answer = "";
+    
+    if(s.length() % 2 == 0)  // 짝수일 경우
+        answer += s[(s.length() / 2) - 1];  // 가운데 글자보다 한 인덱스 앞의 글자 추가
+    answer += s[s.length() / 2];  // 가운데 글자 추가
+    
+    return answer;
+}
