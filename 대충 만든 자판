@@ -1,0 +1,33 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(vector<string> keymap, vector<string> targets) {
+    vector<int> answer;
+    
+    for(int i = 0; i < targets.size(); i++) {
+        answer.push_back(0);
+        
+        for(int j = 0; j < targets[i].size(); j++) {
+            char x = targets[i][j];
+            int type = 101, flag = 1;
+            
+            for(int k = 0; k < keymap.size(); k++) {
+                for(int l = 0; l < keymap[k].size(); l++) {
+                    if(keymap[k][l] == x) {
+                        type = min(type, l + 1); // 가장 적게 누르는 값 저장
+                        flag = 0;  // 할당 가능한 문자
+                        break;
+                    }
+                }
+            }
+            if (flag) {  // 목표 문자열 작성할 수 없을 경우
+                answer[i] = -1;
+                break;
+            }
+            answer[i] += type;  // 할당한 값 더하기
+        }
+    }
+    return answer;
+}
