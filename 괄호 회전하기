@@ -1,0 +1,31 @@
+#include <string>
+#include <vector>
+#include <stack>
+
+using namespace std;
+
+int solution(string s) {
+    int answer = 0;
+
+	for (int i = 0; i < s.size(); ++i) {
+		s.push_back(s[0]);
+		s.erase(0, 1);
+		stack<char> st;
+
+		for (char c : s) {
+            // 스택이 비어있을 경우 push
+			if (st.empty())	st.push(c);
+			else {
+        // 동일한 괄호 조합일 경우 pop
+				if (st.top() == '{' && c == '}') st.pop();
+				else if (st.top() == '[' && c == ']') st.pop();
+				else if (st.top() == '(' && c == ')') st.pop();
+        // 동일하지 않은 괄호 조합일 경우 push
+				else st.push(c);
+            }
+        // 스택이 비어있을 경우(모든 괄호 정상적으로 완성)
+        } if (st.empty())
+			++answer;
+    }
+    return answer;
+}
