@@ -1,0 +1,26 @@
+#include <string>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+string solution(string X, string Y) {
+    string answer = "";
+    map<char, int> map_X;
+    map<char, int> map_Y;
+
+    
+    for(int i = 0; i < X.size(); i++) map_X[X[i]]++;
+    for(int i = 0; i < Y.size(); i++) map_Y[Y[i]]++;
+    
+    for(int i = 9; i >= 0; i--) {
+        int num = min(map_X[i + '0'], map_Y[i + '0']);  // 최소값 찾기
+        
+        for(int j = 0; j < num; j++)
+            answer += i + '0';
+    }
+    if(answer == "") return "-1";  // X, Y의 짝꿍 존재하지 않을 경우
+    else if(answer[0] == '0') return "0";  // X, Y의 짝꿍이 정수 0일 경우
+
+    else return answer;
+}
