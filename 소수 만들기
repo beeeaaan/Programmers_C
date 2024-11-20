@@ -1,0 +1,24 @@
+#include <vector>
+#include <iostream>
+using namespace std;
+
+int solution(vector<int> nums) {
+    int answer = 0;
+
+    for(int i = 0; i < nums.size(); i++)
+        for(int j = i + 1; j < nums.size(); j++)
+            for(int k = j + 1; k < nums.size(); k++) {
+                bool decimal = true;
+                int sum = nums[i] + nums[j] + nums[k];
+                // 소수 : 1과 자기 자신을 제외한 수로 나눌 수 없는 수
+                // 2부터 자기 자신보다 작은 수 이용해서 자기 자신을 나눈 나머지가 0일 경우 소수가 아님
+                for(int z = 2; z < sum; z++) {
+                    if(sum % z == 0){
+                        decimal = false;
+                        break;
+                }
+            } if(decimal)
+                answer++;
+        }
+    return answer;
+}
