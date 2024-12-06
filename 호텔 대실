@@ -1,0 +1,22 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(vector<vector<string>> book_time) {
+    int answer = 0, room[2410] = {0, };  // 0000 ~ 2409 : 마지막 대실 종료 시간(2359) + 청소시간
+    int x = book_time.size();
+    
+    for(int i = 0; i < x; i++) {
+        int y = stoi(book_time[i][0].substr(0, 2)) * 100 + stoi(book_time[i][0].substr(3));
+        int z = stoi(book_time[i][1].substr(0, 2)) * 100 + stoi(book_time[i][1].substr(3)) + 10;
+        
+        // 60분부터 시간 늘려주기
+        if(z % 100 >= 60) z += 40;
+        for(int j = y; j < z; j++) room[j]++;
+    }
+
+    for(int i = 0; i < 2400; i++) answer = max(answer, room[i]);  // 가장 큰 값이 겹치는 시간대의 필요한 방의 개수
+
+    return answer;
+}
