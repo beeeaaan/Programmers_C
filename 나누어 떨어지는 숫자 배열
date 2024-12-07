@@ -1,0 +1,19 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> solution(vector<int> arr, int divisor) {
+    vector<int> answer;
+    sort(arr.begin(), arr.end());
+    
+    for (size_t i = 0; i < arr.size(); i++) 
+        // 나누어 떨어지는 경우
+        if (arr[i] % divisor == 0) answer.push_back(arr[i]);
+    
+    // 비어있을 경우(나누어 떨어지는 경우가 하나도 없을 경우)
+    if (answer.empty()) answer.push_back(-1);
+
+    return answer;
+}
