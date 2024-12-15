@@ -1,0 +1,47 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(vector<string> friends, vector<string> gifts) {
+    int maxGiftsCnt = 0;
+    int log[50][50] = {0, }, giveCnt[50] = {0, }, receiveCnt[50] = {0, };
+    int size = gifts.size();
+    
+    for (int i = 0; i < size; i++) {
+        string now = gifts[i];
+        int blankIdx = now.find(' ');
+        string giver = now.substr(0, blankIdx), receiver = now.substr(blankIdx + 1);
+        int giverIdx = find(friends.begin(), friends.end(), giver) - friends.begin();
+        int receiverIdx = find(friends.begin(), friends.end(), receiver) - friends.begin();
+        log[giverIdx][receiverIdx]++;  // 서로 선물을 주고 받은 기록 표로 옮기기   
+
+        // 선물 지수 계산하기
+        giveCnt[giverIdx]++;
+        giveCnt[receiverIdx]--;
+    }
+    int people = friends.size();
+    
+    for (int i = 0; i < people; i++) {
+        for (int j = 0; j < people; j++) {
+            if (i == j) continue;
+            // 선물을 주고 받거나 주고 받은 횟수가 다를 경우
+            if (log[i][j] || log[j][i]) {
+                if (log[i][j] > log[j][i])
+                    receiveCnt[i]++;
+                // 선물을 주고 받은 횟수가 같으면서 선물 지수 비교하기
+                else if (log[i][j] == log[j][i] && giveCnt[i] > giveCnt[j])
+                    receiveCnt[i]++;
+            }
+            // 선물을 주고 받지 않을 경우
+            else {         
+                // 서로의 선물 지수가 다를 경우
+                if (giveCnt[i] > giveCnt[j])
+                    receiveCnt[i]++;
+            }
+        }
+        maxGiftsCnt = max(maxGiftsCnt, receiveCnt[i]);
+    }
+    return maxGiftsCnt;
+}
