@@ -1,0 +1,30 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(int storey) {
+    int answer = 0;
+    
+    while(storey > 0) {
+        int x = storey % 10;  // 1의 자리의 수
+        storey /= 10;  // 자리수 오른쪽으로 1칸씩 이동하기
+        // 1의 자리수가 5미만일 경우 n만큼 버튼 누르기
+        if(x < 5) {
+            answer += x;
+        // 1의 자리수가 5초과할 경우 한 자리 수 위 버튼 1번 누르고 10 - n만큼 버튼 누르기 
+        } else if(x > 5) {
+            ++storey;
+            answer += 10 - x;            
+        }
+        // 1의 자리수가 5일 경우 다음 자리수가 5이상이면 2번, 다음 자리수가 5미만이면 1번
+        else {
+            int test = storey % 10;    
+            if(test >= 5) {
+                ++storey;
+            }
+            answer += x;
+        }
+    }       
+    return answer;
+}
