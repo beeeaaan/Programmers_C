@@ -1,0 +1,37 @@
+#include <string>
+#include <vector>
+#include <map>
+#include <set>
+
+using namespace std;
+
+vector<int> solution(vector<string> id_list, vector<string> report, int k) {
+    vector<int> answer;
+    map<string, int> report_cnt;  //신고된 ID, 신고횟수
+    map<string, set<string>> report_list;  //신고한 ID, 신고된 ID 
+    
+    for (string s : report) {
+        int blank = s.find(' ');
+        string from = s.substr(0, blank);
+        string to = s.substr(blank);
+        
+        // 중복 신고가 아닐 경우
+        if (report_list[from].find(to) == report_list[from].end()) {
+            report_cnt[to]++;
+            report_list[from].insert(to);
+        }
+    }
+    
+    for (string s : id_list) {
+        int cnt = 0;
+        
+        // 자신이 신고한 사람이 k번 이상 신고 당한 사람일 경우
+        for (string str : report_list[s]) {
+            if (report_cnt[str] >= k)
+                cnt++;
+        }
+        answer.push_back(cnt);
+    }
+
+    return answer;
+}
