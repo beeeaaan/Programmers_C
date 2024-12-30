@@ -1,0 +1,52 @@
+#include <string>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+// 한 그룹의 최대공약수가 다른 그룹을 나눌 수 없는 수 찾기
+int gcd(int a,int b) {
+    if(b == 0) return a;
+    return gcd(b, a % b);
+}
+
+int solution(vector<int> arrayA, vector<int> arrayB) {
+    int answer = 0;
+    int x = arrayA[0];
+    
+    for(int i = 1 ; i < arrayA.size() ;i++) {
+        x = gcd(x, arrayA[i]);
+        
+        if(x == 1) break;
+    }
+    
+    if(x != 1) {
+        int i;
+        
+        for(i = 0 ; i < arrayB.size() ;i++) {
+            if(arrayB[i] % x == 0) break;
+        }
+        
+        if(i == arrayB.size()) answer = x;
+    }
+    
+    x = arrayB[0];
+    
+    for(int i = 1 ; i < arrayB.size() ;i++) {
+        x = gcd(x, arrayB[i]);
+        
+        if(x == 1) break;
+    }
+    
+    if(x != 1) {
+        int i;
+        
+        for(i = 0 ; i < arrayA.size() ;i++) {
+            if(arrayA[i] % x == 0) break;
+        }
+        
+        if(i == arrayA.size()) answer = max(x,answer);
+    }
+
+    return answer;
+}
