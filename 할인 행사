@@ -1,0 +1,29 @@
+#include <string>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+int solution(vector<string> want, vector<int> number, vector<string> discount) {
+    int answer = 0;
+    map <string, int> items;
+    
+    // 원하는 상품과 개수 등록
+    for(int i = 0; i < want.size(); i++) items[want[i]] = number[i];
+    // 10일 기간 확인
+    for(int i = 0; i < discount.size() - 9; i++) {
+        bool able = true;  // 회원가입 가능한지 확인
+        map <string,int> copy(items);  // 원하는 상품과 개수의 복제본
+        
+        for(int j = i; j < i + 10; j++) copy[discount[j]]--;  // 10일동안 상품--
+        for(auto c : copy) {
+            if (c.second) {  // 구매못한 상품이 있을 경우
+                able = false;
+                break;
+            }
+            
+        } if (able) answer++;  // 다 구매할 수 있을 경우
+    }
+
+    return answer;
+}
