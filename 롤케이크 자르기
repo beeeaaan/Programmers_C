@@ -1,0 +1,25 @@
+#include <string>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
+int solution(vector<int> topping) {
+    int answer = 0, cake;
+    unordered_map <int,int> base, cmp;  // base: 안잘린 통 케이크, cmp: 잘랐을때의 케이크
+    
+    for(auto c : topping) base[c]++;
+    cake = base.size();  // 케이크에 올라간 토핑의 총 개수
+    
+    // 토핑 하나씩 자르기
+    for(auto c : topping) {
+        cmp[c]++; base[c]--;
+
+        // 토핑 개수 딱 떨어질 경우
+        if (base[c] == 0 ) cake--;  // 안 자른 케이크 토핑 수--
+        // 안 자른 케이크 토핑 수와 자른 케이크 토핑수 같을 경우
+        if (cake == cmp.size()) answer++; 
+    }
+    
+    return answer;
+}
