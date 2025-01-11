@@ -1,0 +1,29 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(vector<int> cards) {
+    int n = cards.size();
+    vector<bool> vis(n + 1, false);
+    vector<int> ves;
+    
+    for(int i = 0; i < n; i++) {
+        int cur_cards = cards[i], cnt = 0;
+        
+        while (!vis[cur_cards]) {  // 아직 고른 카드가 아닐 경우
+            vis[cur_cards] = true;  // 골랐는지 확인
+            cur_cards = cards[cur_cards - 1];  // 현재 카드 갱신
+            cnt++;  // 개수++
+        }
+        
+        if (cnt) ves.push_back(cnt);  //  묶음일 경우 추가
+    }
+    
+     sort(ves.begin(), ves.end(), greater<int>());  // 내림차순 정렬
+    
+    if (ves.size() > 1) return ves[0] * ves[1];  // 묶음이 2개 이상일 경우
+   
+    return 0;
+}
