@@ -1,0 +1,29 @@
+#include <string>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+string solution(vector<string> survey, vector<int> choices) {
+    string answer = "";
+	map<char, int> m;
+    
+    // 성격 유형 입력하고 점수 확인
+	for (int i = 0; i < choices.size(); i++) {
+		int check = choices[i];
+        
+		if (check < 4) {
+			m[survey[i][0]] += 4 - check;
+        } else {
+			m[survey[i][1]] += check - 4;
+        }
+    }
+    
+    // 성격 유형 비교
+	answer += (m['R'] >= m['T'] ? "R" : "T");
+	answer += (m['C'] >= m['F'] ? "C" : "F");
+	answer += (m['J'] >= m['M'] ? "J" : "M");
+	answer += (m['A'] >= m['N'] ? "A" : "N");
+
+    return answer;
+}
