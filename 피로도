@@ -1,0 +1,32 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+ 
+using namespace std;
+ 
+int solution(int k, vector<vector<int>> dungeons) {
+    int answer = 0;  // 최대 던전 횟수   
+    sort(dungeons.begin(), dungeons.end());
+    
+    // 모든 던전 진행 순서 중 최대 던전 탐험 횟수 찾기
+    do {
+        int fati = k;  // 피로도
+        int cnt   = 0;  // 순서당 던전 횟수
+        
+        for(int i = 0; i < dungeons.size(); ++i) {
+            // 최소 필요 피로도가 현재 피로도보다 높을 경우 탐험 중단
+            if(dungeons[i][0] > fati)
+                break;           
+            ++cnt;
+            fati -= dungeons[i][1];
+        }
+        
+        // 현재까지 최대 던전 탐험 횟수일 경우 answer 저장 
+        if(cnt > answer)
+            answer = cnt;
+    }
+    
+    while(next_permutation(dungeons.begin(), dungeons.end()));
+        
+    return answer;
+}
