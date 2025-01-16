@@ -1,0 +1,22 @@
+#include <string>
+#include <vector>
+#include <stack>
+
+using namespace std;
+
+int solution(vector<int> order) {
+    int answer = 0;
+    stack<int> s;
+    
+    for (int i = 1; i <= order.size(); i++) {
+        s.push(i);
+        
+        // 스택 top과 현재 상자 번호가 같을 경우
+        while (!s.empty() && s.top() == order[answer]) {
+            s.pop();  // 상자 내리기
+            answer++;
+        }
+    }
+    
+    return answer;
+}
