@@ -1,0 +1,13 @@
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(vector<int> citations) {
+    sort(citations.rbegin(), citations.rend());  // 내림차순 정렬
+   
+    for(int i = citations.size() - 1; 0 <= i; --i) {
+        // 인용 횟수가 인용된 논문 수 이상일 경우
+        if(citations[i] >= i + 1) return i + 1;
+    }
+}
