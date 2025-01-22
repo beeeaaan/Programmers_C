@@ -1,0 +1,33 @@
+#include <string>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+int answer = 100;
+vector<bool> visit(101);  // 송전탑 방문 배열
+
+void dfs(int idx, vector<vector<int>> wires) {  // idx : 방문한 송전탑 번호
+    visit[idx] = true;  // 방문 여부 체크
+    
+    for(int i = 0; i < wires.size(); i++) {
+    	// idx번의 송전탑이 들어있고 연결된 다른쪽 송전탑이 아직 방문하지 않았을 경우
+        if (wires[i][0] == idx && !visit[wires[i][1]]) dfs(wires[i][1], wires);
+        else if (wires[i][1] == idx && !visit[wires[i][0]]) dfs(wires[i][0], wires);
+    }  
+}
+
+int solution(int n, vector<vector<int>> wires) {
+    for(int i = 0;i < wires.size(); i++) {
+        int result = 0;
+        
+        vector<vector<int>> tmp(wires);
+        fill(visit.begin(), visit.end(),false);  // 방문 배열 초기화
+        tmp.erase(tmp.begin() + i);  // 전선 끊기
+        dfs(tmp[0][0], tmp);
+        
+        for(int i = 1; i <= n; i++) if (visit[i]) result++;
+        answer = min(answer, abs(result - (n-result)));
+    }
+    
+    return answer;
+}
