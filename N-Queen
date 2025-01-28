@@ -1,0 +1,43 @@
+#include <string>
+#include <vector>
+ 
+using namespace std;
+ 
+int x;
+int answer = 0;
+int queen_col[13];  // 1차원 배열
+ 
+bool check(int row) {
+    // 같은 행, 열과 대각선상에 놓일 수 없음
+    for(int i = 0; i < row; ++i) {
+        if(queen_col[row] == queen_col[i] || row-i == abs(queen_col[row]-queen_col[i]))
+            return false;
+    }
+    
+    return true;
+}
+ 
+void nqueen(int row) {
+    // 열 개수, queen 개수 같은 경우 찾기
+    if(row == x) {
+        ++answer;
+        return;
+    }
+            
+    // row 행, i번째 열에 queen 놓고 확인 후 다음 queen 놓기
+    for(int i = 0; i < x; ++i) {
+        queen_col[row] = i;
+        if(check(row)) {
+            nqueen(row + 1);
+        }
+    }
+ 
+}
+ 
+int solution(int n) {
+    x = n;
+    nqueen(0);
+    
+    return answer;
+}
+
