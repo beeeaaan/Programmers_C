@@ -1,0 +1,29 @@
+#include <string>
+#include <vector>
+using namespace std;
+
+int solution(string skill, vector<string> skill_trees) {
+    int answer = 0;
+    
+    for (auto skill_tree : skill_trees) {
+        bool good = true ;
+        int idx = 0;
+        
+        for (auto user_skill : skill_tree) {
+            int cur_idx = skill.find(user_skill);
+
+            // 스킬 트리 중 유저가 배운 스킬이 있는 경우
+            if (cur_idx == -1) continue ;
+            // 있지만 순서에 맞게 찍지 않은 경우
+            if (cur_idx != idx) {
+                good = false;
+                break ;
+            }
+            idx++;
+            
+        }
+        if (good) answer++;
+    }
+    
+    return answer;
+}
