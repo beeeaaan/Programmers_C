@@ -1,0 +1,36 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+vector<int> answer(2,0);
+
+void recur(int sRow, int eRow, int sCol, int eCol, vector<vector<int>> *arr) {
+    int data = (*arr)[sRow][sCol];  // 현재 구간의 대표 데이터
+    bool div = false;
+    
+    for (int i = sRow; i < eRow && !div; i++) {
+        for (int j = sCol; j < eCol && !div; j++) {
+            // 대표 데이터와 다를 경우
+            if ((*arr)[i][j] != data) div = true;
+        }
+    }
+
+    // 더 이상 쪼갤 수 없는 경우
+    if (!div) {
+        answer[data]++;
+
+    // 쪼갤 수 있을 경우
+    } else {
+        recur(sRow, (sRow+eRow) / 2, sCol, (sCol + eCol) / 2, arr);  // 1사분면
+        recur(sRow, (sRow+eRow) /2, (sCol + eCol) / 2, eCol, arr);  // 2사분면
+        recur((sRow+eRow) / 2, eRow, sCol, (sCol + eCol) / 2, arr);  // 3사분면
+        recur((sRow+eRow) / 2, eRow, (sCol + eCol)/2, eCol, arr);  // 4사분면
+    }
+}
+
+vector<int> solution(vector<vector<int>> arr) {
+    int x = arr.size();
+    recur(0, x, 0, x, &arr);
+
+    return answer;
+}
