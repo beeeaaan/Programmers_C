@@ -1,0 +1,39 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int map[101][101];
+
+// 시계방향으로 회전
+int rotate(int x1, int y1, int x2, int y2){
+    int num = map[x1 - 1][y1 - 1];
+    int min_val = num;
+    
+    // 회전할때마다 최소값 갱신
+    for(int i = x1 - 1; i < x2 - 1; i++) map[i][y1 - 1] = map[i + 1][y1 - 1], min_val = min(min_val, map[i + 1][y1 - 1]);
+    for(int i = y1 - 1; i < y2 - 1; i++) map[x2 - 1][i] = map[x2 - 1][i + 1], min_val = min(min_val, map[x2 - 1][i + 1]);
+    for(int i = x2 - 1; i > x1 - 1; i--) map[i][y2 - 1] = map[i - 1][y2 - 1], min_val = min(min_val, map[i - 1][y2 - 1]);
+    for(int i = y2 - 1; i > y1 - 1; i--) map[x1 - 1][i] = map[x1 - 1][i - 1], min_val = min(min_val, map[x1 - 1][i - 1]);
+    map[x1 - 1][y1] = num;
+    
+    return min_val;
+}
+
+vector<int> solution(int rows, int columns, vector<vector<int>> queries) {
+    vector<int> answer;
+    int num = 1;
+    
+    // map 배열에 1부터 순서대로 rows와 columns를 곱한 값 저장
+    for(int i = 0; i < rows; i++)
+        for(int j = 0; j < columns; j++)
+            map[i][j] = num++;
+    
+    for(int i = 0; i < queries.size(); i++) {
+        int n = rotate(queries[i][0], queries[i][1], queries[i][2], queries[i][3]);
+        
+        answer.push_back(n);
+    }
+    
+    return answer;  // 최소값
+}
