@@ -1,0 +1,25 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int answer = 0;
+
+void DFS(vector<int> &numbers, int target, int X,int sum){
+    
+    // 정수들 순서대로 더하거나 빼서 타겟 넘버와 같을 경우
+    if(X == numbers.size()) {
+        if(sum == target) answer++;        
+    } else {
+        // 다음 레벨로 넘어가면서 sum + 현재 레벨 값
+        DFS(numbers, target, X + 1, sum + numbers[X]);
+        // 다음 레벨로 넘어가면서 sum - 현재 레벨 값
+        DFS(numbers, target, X + 1, sum - numbers[X]);
+    }    
+}
+
+int solution(vector<int> numbers, int target) {            
+    DFS(numbers, target, 0, 0);
+    
+    return answer;
+}
