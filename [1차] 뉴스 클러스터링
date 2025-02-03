@@ -1,0 +1,41 @@
+#include <string>
+#include <map>
+
+using namespace std;
+
+map<string, pair<int, int>> mp;
+
+int solution(string str1, string str2) {
+    int answer = 0;
+    int inNum = 0, unNum = 0;
+    double num = 0;
+    
+    // 소문자 만들기
+    for(int i = 0; i < str1.size(); i++) str1[i] = tolower(str1[i]);
+    for(int i = 0; i < str2.size(); i++) str2[i] = tolower(str2[i]);
+    
+    // 알파벳일 경우(isalpha) 2글자만 map에 넣기(substr)
+    for(int i = 0; i < str1.size() - 1; i++)
+        if(isalpha(str1[i]) && isalpha(str1[i + 1]))
+            mp[str1.substr(i, 2)].first++;
+    
+    for(int i = 0; i < str2.size() - 1; i++)
+        if(isalpha(str2[i]) && isalpha(str2[i + 1]))
+            mp[str2.substr(i, 2)].second++;
+    
+    for(auto it : mp) {
+        // 교집합은 모든 값의 최소값 더하기
+        inNum += min(it.second.first, it.second.second);
+        // 합집합은 모든 값의 최대값 더하기
+        unNum += max(it.second.first, it.second.second);
+    }
+    
+    // 교집합과 합집합의 값이 0알 경우 1.0 초기화
+    if(inNum == 0 && unNum == 0) num = 1.0;
+    // 아닐 경우 교집합의 값 / 합집합의 값
+    else num = double(inNum) / double(unNum);
+    
+    answer = num * 65536;
+    
+    return answer;
+}
