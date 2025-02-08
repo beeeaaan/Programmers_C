@@ -1,0 +1,36 @@
+#include <string>
+#include <vector>
+#include <map>
+#include <sstream>
+#include <unordered_map>
+
+using namespace std;
+
+vector<string> solution(vector<string> record){
+    vector <string> answer; 
+    string cmd, id, name; 
+    map<string, string> m;
+    
+    // 띄워쓰기 값들 저장
+    for(auto x : record) {
+        stringstream strs(x); 
+        strs >> cmd >> id;
+        
+        if(cmd == "Enter" || cmd == "Change") {
+            strs >> name; 
+            m[id] = name;  // 아이디에 따라 이름 저장 
+        }
+    }
+    
+	for (string x : record) {
+		stringstream strs(x); 
+		strs >> cmd >> id;
+		name = (m.find(id) -> second);
+        
+    // 아이디에 맞는 결과 출력
+		if (cmd == "Enter")	answer.push_back(name + "님이 들어왔습니다.");  // 입장
+		else if (cmd == "Leave") answer.push_back(name + "님이 나갔습니다.");  // 퇴장
+	}
+    
+	return answer; 	        
+}
