@@ -1,0 +1,38 @@
+#include <iostream>
+#include <vector>
+#include <string.h>
+#include <algorithm>
+
+using namespace std;
+
+int map_road[51][51];
+int in = 10001;
+
+int solution(int N, vector<vector<int> > road, int K) {
+    int answer = 0;
+    memset(map_road, in, sizeof(map_road));
+
+    // 각 마을간 거리 입력받을 때마다 양방향으로 배열 저장
+    // 마을 사이 경로 2개 이상일 수 있으므로 입력받을 때마다 최소값으로 갱신
+    for(int i = 0; i < road.size(); i++) {
+        map_road[road[i][0]][road[i][1]] = map_road[road[i][1]][road[i][0]] = min(map_road[road[i][0]][road[i][1]], road[i][2]);
+    }
+    
+    // 마을 기준으로 최소 거리 갱신
+    for(int k = 1; k <= N; k++) {
+        for(int i = 1; i <= N; i++) {
+            for(int j = 1; j <= N; j++) {
+                map_road[i][j] = min(map_road[i][j], map_road[i][k] + map_road[k][j]);
+            }
+        }
+    }
+    
+    for(int i = 1; i <= N; i++) map_road[i][i] = 0;
+    
+    // 배열 첫번째 행과 다른 마을들 사이 거리 중 K이하인 거리가 존재할경우
+    for(int i = 1; i <= N; i++) {
+        if(map_road[1][i] <= K) answer++;
+    }
+    
+    return answer;
+}
