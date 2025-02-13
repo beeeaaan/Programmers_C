@@ -1,0 +1,49 @@
+#include <string>
+#include <string.h>
+#include <vector>
+#include <queue>
+using namespace std;
+
+int dx[4] = {-1, 0, 1, 0}, dy[4] = {0, 1, 0, -1};  // 북, 동, 남, 서 (시계 방향)
+
+int solution(vector<string> board) {
+    int n = board.size(), m = board[0].size();
+    int visit[100][100]; memset(visit, -1, sizeof(visit));  // 방문배열 -1 로 초기화
+    queue<pair<int, int>> q;
+    
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < m; j++)
+            // 시작지점
+            if(board[i][j] == 'R') q.push({i, j});  // 큐 추가
+    visit[q.front().first][q.front().second] = 0;  // 시작지점 방문 확인(이동 횟수)
+    
+    while(!q.empty()) {
+        pair<int,int> current = q.front();
+        q.pop();
+        
+        for(int dir = 0; dir < 4; dir++) {
+            int nx = current.first, ny = current.second;
+            while (1) {
+                // 벽을 만날 경우
+                if (nx < 0 || ny < 0 || nx >= n || ny >= m) break;
+                // 장애물을 만날 경우
+                if (board[nx][ny] == 'D') break;
+                nx += dx[dir];  // 한칸씩
+                ny += dy[dir];  // 전진
+            }
+            
+            nx -= dx[dir];  // 벽 또는 장애물까지 전진했으므로
+            ny -= dy[dir];  // 바로 이전 좌표에서 정지
+            
+            // 조건에 만족할 경우
+            if (board[nx][ny] == 'G') return (visit[current.first][current.second] + 1);
+            // 방문한 적이 있을 경우
+            if (visit[nx][ny] >= 0) continue;
+            visit[nx][ny] = visit[current.first][current.second] + 1;  // 방문 확인(이전 방문값 + 1)
+            q.push({nx,ny});
+        }
+    }
+    
+    // 탈출을 못할 경우
+    return (-1);
+}
