@@ -1,0 +1,23 @@
+using namespace std;
+
+typedef long long ll;
+
+long long solution(int w,int h) {    
+    ll answer =1;
+    answer = (ll)w * (ll)h - (w + h);
+
+ 
+    int tmp; 
+    int w1, h1;         
+    w1 = w; h1 = h; 
+    
+    // 최대공약수()
+    while(h1 != 0) {
+        tmp = w1 % h1; 
+        w1 = h1; 
+        h1 = tmp;         
+    }    
+    
+    answer += w1; 
+    return answer; 
+}
