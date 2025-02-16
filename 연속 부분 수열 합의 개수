@@ -1,0 +1,27 @@
+#include <string>
+#include <vector>
+#include <set>
+
+using namespace std;
+
+int solution(vector<int> elements) {
+    int answer = 0;
+    set<int> s;  // 중복되는 숫자 있을 수 있으므로
+
+    // 시작
+    for (int i = 0; i < elements.size(); i++) {
+        int sum = 0;
+        
+        for (int j = i; j < elements.size() + i; j++) {  // 원형
+            int idx = j % elements.size();
+            
+            // 각각 부분 수열 더하기
+            sum += elements[idx];
+            s.emplace(sum);
+        }
+    }
+    
+    answer = s.size();
+
+    return answer;
+}
