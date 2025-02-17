@@ -1,0 +1,40 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(vector<int> queue1, vector<int> queue2) {
+    int answer = 0;
+    vector<int> v;  // 두 큐 모든 원소 담을 벡터    
+    int x1 = 0;
+    int que1 = queue1.size() - 1;  // 시작 지점
+    int x2 = queue1.size();
+    int que2 = queue1.size()*2 - 1;  // 끝 지점    
+    int size = queue1.size() * 2;
+    long long sum1 = 0, sum2 = 0;
+        
+    for (int que1: queue1) {
+        sum1 += que1;
+        v.push_back(que1);
+    }
+    
+    for (int que2: queue2) {
+        sum2 += que2;
+        v.push_back(que2);
+    }
+
+    // 위치가 원래대로 돌아오면 각 큐의 원소 합을 같게 만들 수 없음
+    while (answer <= size * 2) {
+        if (sum1 < sum2) {
+            sum1 += v[(++que1) % size];
+            sum2 -= v[(x2++) % size];
+        } else if (sum1 > sum2) {
+            sum1 -= v[(x1++) % size];
+            sum2 += v[(++que2) % size];
+        } else return answer;  // 두 큐의 합이 같으면 answer 반환
+        
+        answer++;
+    }
+    
+    return -1;
+}
