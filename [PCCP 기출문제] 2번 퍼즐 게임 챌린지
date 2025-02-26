@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(vector<int> diffs, vector<int> times, long long limit) {
+    int answer = 0;    
+    int maxTime = 100000;  // 최대값
+    int minTime = 1;  // 최소값
+    int middle;
+    long long int totalTime;
+    
+    // 이분탐색
+    while(maxTime >= minTime) {
+        middle = (maxTime + minTime) / 2;
+        totalTime = 0;
+        
+        for(int i = 0; i < diffs.size(); i++) {
+            totalTime += times[i];
+            
+            if(middle < diffs[i]) {
+                totalTime += (times[i-1] + times[i]) * (diffs[i] - middle);
+            }
+            
+            if(totalTime > limit) {
+                break;
+            }
+        }
+        
+        if(totalTime > limit) {
+            minTime = middle + 1;
+        }
+        
+        else {
+            maxTime = middle - 1;
+        }
+    }
+    
+    answer = minTime;
+    
+    return answer;
+}
