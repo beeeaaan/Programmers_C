@@ -1,0 +1,27 @@
+#include <string>
+#include <vector>
+#include <map>
+#include <algorithm>
+
+using namespace std;
+
+vector<vector<int>> solution(vector<vector<int>> data, string ext, int val_ext, string sort_by) {
+    vector<vector<int>> answer;
+    
+    // ext에 값을 index로 뽑기 위해 map에 저장
+    map<string, int> token = {{"code", 0}, {"date", 1}, {"maximum", 2}, {"remain", 3}};     
+    int findIndex = token[ext];  // 데이터 뽑는 기준 index
+    int sortIndex = token[sort_by];  // 데이터 정렬 기준 index
+    
+    for(int i = 0; i < data.size(); ++i) {
+        // val_ext보다 값이 작은 경우
+        if(data[i][findIndex] <= val_ext) {
+            answer.push_back(data[i]);        
+        }
+    }
+    
+    // sort_index 기준으로 오름차순 정렬
+    sort(answer.begin(), answer.end(), [&](vector<int>& a, vector<int>& b) {return a[sortIndex] < b[sortIndex];});
+    
+    return answer;
+}
