@@ -1,0 +1,63 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int answer = 50;
+bool visit[50];
+
+//다른 문자가 1개인지 확인하는 함수
+bool check_diff(string x, string y) {
+  int diff_Cnt = 0;
+
+  for(int i = 0; i < x.size(); i++) {
+    if(x[i] != y[i]) {
+      diff_Cnt++;
+    }
+  }
+    
+  // 다른 문자가 1개일 경우
+  if(diff_Cnt == 1) {
+    return true;
+  }
+    
+  return false;
+}
+
+void dfs(string begin, string target, vector<string>words, int step){
+  // step이 이전에 찾은 answer보다 클 경우
+  if(answer <= step)
+    return;
+
+  if(begin == target) {
+    answer = min(answer, step);
+    return;
+  }
+  
+  for(int i = 0; i < words.size(); i++) {
+    // 한개의 문자만 다르고 방문하지 않은 단어일 경우
+    if(check_diff(begin, words[i]) && !visit[i]) {
+      visit[i] = true;
+        
+      // 그 단어부터 탐색을 다시 시작
+      // step + 1(단계가 하나 추가되었으므로)
+      dfs(words[i], target, words, step + 1);
+      // dfs 재귀 호출하여 종료되어 여기로 돌아올 경우 
+      // 백트래킹(방문 표시 해제)하여 다음분기점부터 다시 탐색 시작
+      visit[i] = false;
+    }
+  }
+  
+  return;
+}
+
+int solution(string begin, string target, vector<string> words) {
+  dfs(begin, target, words, 0);
+
+  // 탐색후 target문자열을 만나지 못했을 때
+  if(answer == 50)
+    return 0;
+
+  return answer;
+}
