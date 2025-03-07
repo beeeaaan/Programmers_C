@@ -1,0 +1,37 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+using namespace std;
+
+int column;
+
+bool cmp(const vector<int>& v1, const vector<int>& v2) {
+    if(v1[column] == v2[column]) {
+        return v1[0] > v2[0] ? true : false;
+    } else {
+        return v1[column] < v2[column] ? true : false;
+    }
+}
+
+int solution(vector<vector<int>> data, int col, int row_begin, int row_end) {
+    int answer = 0;
+    column = col - 1;
+    // col번째 컬럼 값을 기준으로 오름차순 정렬
+    // 값이 동일할 경우 기본키인 첫번째 컬럼 값 기준으로 내림차순 정렬
+    sort(data.begin(), data.end(), cmp);
+    int lenth = data[0].size();
+    
+    for(int i = row_begin; i <= row_end; ++i) {
+        int totalSum = 0;
+        
+        for(int j = 0; j < lenth; ++j) {
+            // 각 컬럼의 값 : i로 나눈 나머지들의 합
+            totalSum += (data[i - 1][j] % i);
+        }
+        answer ^= totalSum;
+    }
+    
+    return answer;
+}
