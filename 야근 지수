@@ -1,0 +1,36 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <queue>
+
+using namespace std;
+
+long long solution(int n, vector<int> works) {    
+    long long answer = 0;
+    priority_queue<int>que;
+    int number, count;
+    
+    // 1. 우선순위 큐 이용해서 존재하는 작업 중 가장 큰 값이 top인 max heap 으로 구성
+    // 2. N시간 동안 top에 위치한 작업량 잠깐 꺼내서 한시간씩 빼주고 다시 push하기
+    for(int i = 0; i < works.size(); i++)
+        que.push(works[i]);
+    
+    for(int i = 0; i < n; i++) {
+        number = que.top();
+        que.pop();
+        
+        if(number - 1 > 0)
+            que.push(number - 1);
+        
+        if(que.empty() == 1)
+            return 0;
+    }
+    
+    while(que.empty() != 1){
+        answer += que.top() * que.top();
+        que.pop();
+    }
+        
+    return answer;
+}
