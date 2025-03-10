@@ -1,0 +1,39 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(string s) {
+    int answer = s.size();
+    
+    // 문자열 s를 압축할 수 있는 최대 길이 : s 길이의 절반
+    for (int i = 1; i <= s.size() / 2; i++) {
+        int cnt = 1;
+        string tmp = "";
+        string comp_Str = s.substr(0, i);
+        
+        // 문자열 비교
+        for (int j = i; j < s.size(); j += i) {
+            string cur_Str = s.substr(j, i);
+            
+            // 비교 문자열과 현재 문자열이 같을 경우
+            if (comp_Str == cur_Str) cnt++;
+            else {
+                // cnt가 1보다 큰 경우
+                if (cnt > 1) tmp += to_string(cnt);
+                // tmp 문자열에 cnt와 비교하는 문자열 더하기
+                tmp += comp_Str;
+                comp_Str = cur_Str;
+                cnt = 1;
+            }
+        }
+        
+        // 4. 압축한 문자열이 answer보다 짧을 경우
+        if (cnt > 1) tmp += to_string(cnt);
+        tmp += comp_Str;
+        // 압축한 문자열 길이로 갱신
+        answer = answer > tmp.size() ? tmp.size() : answer;
+    }
+    
+    return answer;
+}
