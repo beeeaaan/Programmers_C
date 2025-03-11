@@ -1,0 +1,33 @@
+#include <vector> 
+
+using namespace std; 
+
+int check[200]; 
+
+void dfs(int curCom, int n, vector< vector<int> > computers) { 
+  // curCom번째 컴퓨터 체크 표시
+  check[curCom] = 1;
+
+  for(int i = 0; i < n; i++) { 
+    // 다른 컴퓨터와 연결되어 있고 그 컴퓨터가 아직 탐색하지 않은 경우
+    if(check[i] == 0 && computers[curCom][i] == 1) {   
+      dfs(i, n, computers); 
+    } 
+  } 
+} 
+
+int solution(int n, vector< vector<int> > computers) { 
+  int answer = 0;
+
+  for(int i = 0; i < n; i++) { 
+    // 아직 검사하지 않은 컴퓨터일 경우
+    if(check[i] == 0) { 
+      dfs(i, n, computers);
+      
+      // answer + 1(재귀호출한 dfs함수에 연결된 그래프 하나)
+      answer++; 
+    } 
+  } 
+
+  return answer;
+}
