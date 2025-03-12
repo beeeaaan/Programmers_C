@@ -1,0 +1,20 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+ 
+string nStr[] = { "4" , "1" , "2" };
+ 
+string solution(int n) {
+    string answer = "";
+    while(n > 0) {
+        answer += nStr[n % 3];
+        // 3으로 나누어 떨어질 경우 나머지를 0 대신 4로 설정하고 몫을 하나 감소시킨 후 계산 진행
+        if(n % 3 == 0) n = (n / 3) - 1;
+        else n = n / 3;
+    }
+
+    reverse(answer.begin(), answer.end());
+    return answer;
+}
