@@ -1,0 +1,60 @@
+#include <string>
+#include <vector>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
+#include <deque>
+
+using namespace std;
+
+vector<string> split(string str){
+    istringstream istr(str);
+    vector<string> x;
+    string buff;
+    
+    while(getline(istr, buff,' '))
+        x.push_back(buff);
+        
+    return x;
+}
+
+vector<int> solution(vector<string> operations) {
+    vector<int> answer;
+    vector<string> vop;
+    deque<int> deq;    
+    
+    for(int i = 0; i < operations.size(); i++) {
+        vop = split(operations[i]);  // 명령어와 숫자 분리
+        
+        // I일 경우 큐에 숫자 삽입
+        if(vop[0]=="I") {
+            deq.push_back(stoi(vop[1]));  // 큐에 숫자 삽입
+        }
+        // D일 경우
+        else if(vop[0] == "D") {
+            // 비어 있을 경우 다음으로 넘어가기
+            if(deq.empty() == 1)
+                continue;
+            // 1일 경우 최대값 삭제(맨 뒤의 값)
+            if(vop[1] == "1")
+                deq.pop_back();
+            // -1일 경우 최소값 삭제 (맨 앞의 값)
+            else if(vop[1] == "-1")
+                deq.pop_front();
+        }
+        sort(deq.begin(), deq.end());
+    }
+    
+    // 모든 연산 후 비어 있을 경우 0, 0
+    if(deq.empty() == 1) {
+        answer.push_back(0);
+        answer.push_back(0);
+    }
+    // 비어 있지 않을 경우 최대값, 최소값
+    else {
+        answer.push_back(deq.back());
+        answer.push_back(deq.front());
+    }   
+    
+    return answer;
+}
