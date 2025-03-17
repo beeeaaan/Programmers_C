@@ -1,0 +1,83 @@
+#include <string>
+#include <vector>
+#include <map>
+using namespace std;
+
+bool check(int i, int j, vector<string>& board) {   
+    char c = board[i][j];  // 현재 위치의 문자
+    
+    // 현재 문자와 동일한 2X2일 경우
+    if(c != 'X' && board[i][j + 1] == c && board[i + 1][j] == c && board[i+1][j+1] == c)
+        return true;
+    else
+        return false;
+}
+
+int remove(int m, int n, vector<string>& board) {    
+    map<pair<int, int>, bool> delmap; // 삭제할 좌표
+    
+    for(int i = 0; i < m; i++) {
+        for(int j = 0; j < n; j++) {
+            // 2X2와 동일할 경우
+            if(i + 1 < m && j + 1 < n && check(i, j, board)) {
+                // 삭제 좌표 추가
+                delmap.insert({make_pair(i, j), true});
+                delmap.insert({make_pair(i, j + 1), true});
+                delmap.insert({make_pair(i + 1 ,j), true});
+                delmap.insert({make_pair(i + 1 ,j + 1), true});
+            }
+        }
+    }
+    
+    // 저장된 좌표로 삭제(X 변환)
+    for(auto iter = delmap.begin(); iter != delmap.end(); iter++) {
+        board[iter -> first.first][iter -> first.second] = 'X';
+    }
+    
+    return delmap.size(); // 삭제된(할) 좌표의 개수 반환
+}
+
+void move(int m, int n, vector<string>& board) {    
+    for(int i = m - 1; i >= 0; i--) {
+        for(int j = n - 1; j >= 0 ; j--) {
+            // X 발견한 경우
+            if(board[i][j] == 'X') {
+                int y = i; // 위로 이동(y에 저장)
+                // 범위 벗어날때까지
+                while(y >= 0) {
+                    // X가 아닌 문자 발견한 경우
+                    if(board[y][j] != 'X') {
+                        // 교환
+                        board[i][j] = board[y][j];
+                        board[y][j] = 'X';
+                        break;
+                        // X 문자일 경우
+                    } else {
+                        // 위로 이동
+                        y--;
+                    }
+                }
+            }
+        }
+    }    
+}
+
+int solution(int m, int n, vector<string> board) {
+    int answer = 0;    
+    int removeCnt;
+    
+    while(1) {
+        removeCnt = remove(m, n, board);
+        // 삭제할 블록이 존재할 경우
+        if(removeCnt != 0) {
+            // answer 추가
+            answer += removeCnt; // answer에 추가하고
+            // 블록 이동(빈자리 채우기 위해)
+            move(m, n, board);
+        } else {
+            break;
+        }
+    }
+    
+    return answer;
+}
