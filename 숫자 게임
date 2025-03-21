@@ -1,0 +1,24 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(vector<int> A, vector<int> B) {
+    int answer = 0;
+    // 점수 낮은 순으로 정렬
+    sort(A.begin(),A.end());
+    sort(B.begin(),B.end());    
+    int Aidx = 0;
+     
+    for(int i = 0; i < B.size(); i++) {
+        // B팀의 0번째 팀원이 A팀의 i번째 팀원을 이길 경우 승리 횟수 증가
+        // B팀의 다음 팀원과 A팀의 다음 팀원 점수 비교
+        if(A[Aidx] < B[i]) {
+            Aidx++;
+            answer++;
+        }
+    }
+    
+    return answer;
+}
