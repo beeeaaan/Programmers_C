@@ -1,0 +1,33 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<long long> solution(vector<long long> numbers) {
+    vector<long long> answer;
+    
+    for (const auto& number : numbers) {
+        if (number % 2 == 0) {
+            answer.push_back(number + 1);
+        }
+        else {
+            long long num = 2;
+            long long tmp = number - 1;
+            
+            while(tmp <= number) {
+                tmp = number ^ num;
+                // 해당 비트가 1일 경우(연산 결과 수 줄어듬)
+                if (tmp < number) {
+                    tmp ^= num;  // 수 되돌려주기
+                    num *= 2;  // 상위 비트 이동
+                }
+                else {
+                    tmp ^= num / 2; // 해당 비트의 하위 비트로 바꾸기
+                }
+            }
+            answer.push_back(tmp);
+        }
+    }
+    
+    return answer;
+}
