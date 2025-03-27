@@ -1,0 +1,28 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(int n, vector<int> stations, int w) {
+    int answer = 0;
+    int now = 1;
+    int stationIdx = 0;
+    
+    while(now <= n) {
+        //현재 위치가 범위 안일 경우
+        if(now >= stations[stationIdx] - w && now <= stations[stationIdx] + w) {
+            now = stations[stationIdx] + w;
+            stationIdx++;
+        }
+        // 기지국 새로 설치하기
+        else {
+            answer++;
+            now += w * 2;
+        }
+        // 다음 칸
+        now++;
+    }
+    
+    return answer;
+}
