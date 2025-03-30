@@ -1,0 +1,37 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+vector<string> answer;
+bool visit[100000001];
+bool check = false;
+
+void dfs(string airport, vector<vector<string>> tickets,int count){
+    // 모두 사용한 경우
+    if(count == tickets.size()) {
+        check = true;
+    } 
+    answer.push_back(airport);
+
+    for(int i = 0; i < tickets.size(); i++) {
+        // 현재 공항 티켓 탐색
+        if(!visit[i] and tickets[i][0] == airport) {
+            visit[i] = true;
+            dfs(tickets[i][1], tickets,count + 1);
+
+            // 모두 다 사용할 수 없는 경우
+            if(!check) {
+                answer.pop_back();
+                visit[i] = false;
+            }
+        }
+    }
+}
+
+vector<string> solution(vector<vector<string>> tickets) {    
+    sort(tickets.begin(), tickets.end());
+    dfs("ICN", tickets,0);
+    
+    return answer;
+}
