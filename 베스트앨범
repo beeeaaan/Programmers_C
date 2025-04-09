@@ -1,0 +1,56 @@
+#include <string>
+#include <vector>
+#include <map>
+using namespace std;
+ 
+vector<int> solution(vector<string> genres, vector<int> plays) {
+    vector<int> answer;
+    map<string, int> music;
+    map<string, map<int, int>> musicList;
+    
+    for (int i = 0; i < genres.size(); i++) {
+        // 장르별 횟수 추가
+        music[genres[i]] += plays[i];
+        // 노래번호, 플레이 횟수 추가
+        musicList[genres[i]][i] = plays[i];
+    }
+    
+    //장르 모두 없어질때까지
+    while (music.size() > 0) {
+        string genre{};
+        int max{0};
+        
+        //장르 중 가장 높은 것 찾기
+        for (auto mu : music){
+            if (max < mu.second){
+                max = mu.second;
+                genre = mu.first;
+            }
+        }
+        
+        // 2곡 넣기
+        for (int i = 0; i < 2; i++){
+            int val = 0, inx = -1;
+            
+            //노래 중 가장 높은 것 찾기
+            for (auto ml : musicList[genre]) {
+                if (val < ml.second) {
+                    val = ml.second;
+                    inx = ml.first;
+                }
+            }
+            
+            // 노래가 0 ~ 1곡 밖에 없을 경우
+            if (inx == -1)    break;
+            
+            // 노래번호 추가
+            answer.push_back(inx);
+            musicList[genre].erase(inx);
+        }
+        
+        // map 에서 사용한 장르 삭제
+        music.erase(genre);
+    }
+    
+    return answer;
+}
