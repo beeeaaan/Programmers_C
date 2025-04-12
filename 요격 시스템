@@ -1,0 +1,29 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+bool comp(vector<int>& a, vector<int>& b) {
+    
+    if(a[1 ] < b[1])
+        return true;
+    else
+        return false;
+}
+
+int solution(vector<vector<int>> targets) {
+    int answer = 0;   
+    sort(targets.begin(), targets.end(), comp);
+    int end = 0;
+    
+    for(int i = 0; i < targets.size(); i++) {
+        // 다음 미사일의 s가 현재 요격한 미사일의 e보다 작을 경우
+        if(targets[i][0] >= end) {
+            // 현재 요격한 미사일 사용
+            end = targets[i][1];
+            answer++;
+        }
+    }
+    
+    return answer;
+}
