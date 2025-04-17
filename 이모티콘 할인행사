@@ -1,0 +1,58 @@
+#include <string>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+ 
+int discount[] = {10, 20, 30, 40};
+vector<pair<int, int>> emoticonPrice(7, {0 , 0});  // {할인 가격, 할인률}
+vector<int> answer = vector<int>(2, 0);
+ 
+void dfs(int emoticon, int emoticonCnt, vector<vector<int>> users, vector<int> emoticons) {
+    if(emoticon < emoticonCnt) {
+        // 할인률에 따른 이모티콘 가격
+        for(int i = 0; i < 4; ++i) {
+            emoticonPrice[emoticon].first =  (100 - discount[i]) * emoticons[emoticon] / 100;
+            emoticonPrice[emoticon].second = discount[i];
+            dfs(emoticon + 1, emoticonCnt, users, emoticons);
+        }
+    }
+    else {
+        int plus = 0;
+        int buyPrice = 0;
+        
+        for(int i = 0; i < users.size(); ++i) {   
+            int totalPrice = 0;
+            
+            // 사용자가 구입할 이모티콘들의 할인 가격 구하기
+            for(int j = 0; j < emoticonCnt; ++j) {
+                if(emoticonPrice[j].second >= users[i][0])
+                    totalPrice += emoticonPrice[j].first;
+            }
+            
+            // 사용자가 이모티콘 구매할지 플러스 가입할지 구분하기
+            if(totalPrice >= users[i][1])
+                ++plus;
+            else
+                buyPrice += totalPrice;
+        }
+        
+        // 가입자가 기존 가입자보다 많을 경우
+        if(plus > answer[0]) {
+            answer[0] = plus;
+            answer[1] = buyPrice;
+        }
+        // 가입자 수는 같지만 구매 비용이 더 많을 경우
+        else if(plus == answer[0]) {
+            if(buyPrice > answer[1])
+                answer[1] = buyPrice;    
+        }
+        
+        return;
+    }
+}
+ 
+vector<int> solution(vector<vector<int>> users, vector<int> emoticons) {
+    dfs(0, emoticons.size(), users, emoticons);
+    return answer;
+}
