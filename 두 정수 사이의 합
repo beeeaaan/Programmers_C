@@ -1,0 +1,21 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+long long solution(int a, int b) {
+    long long answer = 0;
+    
+    // a가 더 클 경우
+    if(a > b) {
+        // a로 초기화
+        int tmp = a;
+        a = b;
+        b = tmp;
+    }
+    
+    for(int i = a; i <= b; i++)
+        answer += i;
+    
+    return answer;
+}
