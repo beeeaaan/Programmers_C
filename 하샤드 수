@@ -1,0 +1,15 @@
+using namespace std;
+
+bool solution(int x) {
+    int sum = 0, tmp = x;
+    
+    // 자릿수 합 구하기
+    while(tmp) {
+        sum += tmp % 10;
+        tmp /= 10;
+    }
+    
+    // 나누어 떨어질 경우 하샤드 수
+    if(x % sum == 0) return true;
+    else return false;
+}
