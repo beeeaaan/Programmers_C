@@ -1,0 +1,13 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+string solution(string my_string) {
+    cin >> my_string;
+    // reverse : 문자열 뒤집기
+    reverse(my_string.begin(), my_string.end());
+    
+    return my_string;
+}
