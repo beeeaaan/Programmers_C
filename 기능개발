@@ -1,0 +1,37 @@
+#include <string>
+#include <vector>
+#include <queue>
+ 
+using namespace std;
+ 
+vector<int> solution(vector<int> progresses, vector<int> speeds) {
+    vector<int> answer;
+    queue<int> q; // 작업 완료 날짜
+ 
+    // 각 기능 개발 작업 완료 날짜 계산
+    for (int i = 0; i < progresses.size(); i++) {
+        int days = 0;
+        
+        while (progresses[i] < 100) {
+            days++;
+            progresses[i] += speeds[i];
+        }
+        q.push(days);
+    }
+ 
+    // 각 날짜 당 기능 배포 개수 계산
+    while (!q.empty()) {
+        int cd = q.front();  // 먼저 배포되어야 하는 작업 완료 날짜
+        int nf = 1;  // 각 날짜 배포되는 기능 개수
+        q.pop();
+ 
+        // 다음 작업 같이 배포할 수 있을 경우
+        while ((!q.empty()) && (q.front() <= cd)) {
+            q.pop();
+            nf++;
+        }
+        answer.push_back(nf);
+    }
+ 
+    return answer;
+}
