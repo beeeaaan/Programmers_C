@@ -1,0 +1,10 @@
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+string solution(string s) {
+    // 내림차순 : sort(v.begin(), v.end(), greater<자료형>());
+    sort(s.begin(), s.end(), greater<int>());
+    return s;
+}
