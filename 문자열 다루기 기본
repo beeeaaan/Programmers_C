@@ -1,0 +1,14 @@
+#include <string>
+
+using namespace std;
+
+bool solution(string s) {
+    // 문자열 길이 4 혹은 6일 경우
+    if(s.size() != 4 && s.size() != 6) return false;
+    // 숫자로만 구성될 경우
+    for(int i = 0; i < s.size(); ++i) {
+        if(s[i] < '0' || '9' < s[i]) return false;
+    }
+    
+    return true;
+}
