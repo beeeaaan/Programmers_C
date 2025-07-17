@@ -1,0 +1,29 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(vector<int> priorities, int location) {
+    int answer = 0;    
+    // 가장 큰 값 가져오기
+    int priorities_Max = *max_element(priorities.begin(), priorities.end());
+    
+    while(true) {
+        for(int i = 0; i < priorities.size(); ++i)
+            // 현재 위치가 max일 경우
+            if(priorities[i] == priorities_Max) {
+                // 실행 순서 증가 및 해당 위치 사용 완료
+                ++answer;
+                priorities[i] = -1;
+                // 다음 가장 큰 값
+                priorities_Max = *max_element(priorities.begin(), priorities.end());
+
+                // i가 현재 위치일 경우
+                if(i == location)    
+                    return answer;
+            }
+    }
+    
+    return answer;
+}
