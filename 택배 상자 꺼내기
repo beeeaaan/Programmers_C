@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int solution(int n, int w, int num) {
+    int row = (n + w - 1) / w;
+    int y = (num - 1) / w;
+    int x = (num - 1) % w;
+
+    if (y % 2 == 1) x = w - 1 - x;
+
+    int answer = 1;
+
+    for (int i = y + 1; i < row; i++) {
+        int count = w;
+        
+        // 층 별 택배 있는지 확인
+        if ((i + 1) * w > n) count = n - i * w;
+
+        int x_index = x;
+        
+        // 홀수층인 경우
+        if (i % 2 == 1) x_index = w - 1 - x;
+
+        // x_idx가 count보다 작은 경우(범위 안에 있는 경우)
+        if (x_index < count) answer++;
+    }
+    
+    return answer;
+}
