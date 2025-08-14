@@ -1,0 +1,27 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+ 
+using namespace std;
+ 
+int solution(int n) {
+    int answer = 0;    
+    string tmp = "";
+    
+    // 10진수(int) -> 3진수(string)
+    while(n) {
+        tmp = to_string(n % 3) + tmp;
+        n /= 3;
+    }    
+    // 거꾸로 뒤집기
+    reverse(tmp.begin(), tmp.end());
+    
+    // 3진수(string) -> 10진수(int)
+    int t = 1;
+    for(int i = tmp.length() - 1; i > -1; i--) {
+        answer += (tmp[i] - '0') * t;
+        t *= 3;
+    }
+    
+    return answer;
+}
