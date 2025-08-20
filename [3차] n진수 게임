@@ -1,0 +1,38 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string str = "0123456789ABCDEF";
+
+// n진수로 변환하여 string으로 변환
+string changeNum(int n, int num) {
+    string result = "";
+    
+    if (num == 0) return "0";
+    while (num) {
+        result = str[num % n] + result;
+        num /= n;
+    }
+
+    return result;
+}
+
+string solution(int n, int t, int m, int p) {
+    string answer = "";
+    string str2 = "";
+    int num = 0;
+    
+    // 최소 t * m보다 문자열 길어야 함(m명 돌어가며 말할 때 t만큼 문자 미리 생각하기 위해)
+    while (str2.size() <= t * m)
+        str2 += changeNum(n, num++);
+    num = p - 1;  // 시작 순서
+    
+    // t개까지 순서에 맞게 고르고 다음 순서 구하기
+    while (answer.size() < t) {
+        answer += str2[num];
+        num += m;
+    }
+    
+    return answer;
+}
