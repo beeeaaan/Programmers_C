@@ -1,0 +1,72 @@
+#include <string>
+#include <vector>
+#include <stack>
+#include <algorithm>
+#include <iostream>
+
+using namespace std;
+
+// 제곱근 판별 함수
+bool isPrime(long long int n) {
+    if(n == 1)
+        return false;
+    
+    // 제곱근
+    for(long long int i = 2; i * i <= n; i++) {
+        if(n % i == 0)
+            return false;
+    }
+    
+    return true;
+}
+
+// 진수 변환
+string convert(long long int n, int k) {
+    stack<long long int> s;
+    string str;
+    
+    while(n != 0) {
+        str += to_string(n % k);
+        n /= k;
+    }
+    
+    reverse(str.begin(), str.end());
+    return str;
+}
+
+
+int solution(int n, int k) {
+    int answer = 0;
+    string s = convert(n, k);
+    string tmp;
+    
+    for(int i = 0; i < s.length(); i++) {
+        // 0이 아닌 경우
+        if(s[i] != '0')
+            tmp += s[i];
+        // 0인 경우
+        else {
+            if(tmp.length() != 0 && isPrime(stol(tmp)))  {
+                // OPO인 경우(소수 양쪽에 0이 있는 경우)
+                if(i - tmp.length() - 1 >= 0 && s[i - tmp.length() - 1] == '0')
+                    answer++;
+                // PO인 경우(소수 오른쪽에만 0이 있고 왼쪽에는 아무것도 없는 경우)
+                else if(i - tmp.length() == 0)
+                    answer++;
+            }
+            
+            tmp = "";
+        }
+    }
+    
+    if(tmp.length() != 0 && isPrime(stol(tmp))) {
+        // OP인 경우(소수 왼쪽에만 0이 있고 오른쪽에는 아무것도 없는 경우)
+        if(s.length() - tmp.length() >= 0 && s[s.length() - tmp.length() - 1] == '0')
+            answer++;
+        // P인 경우(1. 소수 양쪽에 아무것도 없는 경우 2.각 자릿수에 0을 포함하지 않는 소수)
+        else if(s.length() - tmp.length() == 0)
+            answer++;
+    }
+                
+    return answer;
+}
