@@ -1,0 +1,40 @@
+#include <string>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+vector<int> solution(string msg) {
+    vector<int> answer;
+    map<string, int> dic;
+    int idx;
+    
+    // 사전 초기화(길이 1인 모든 단어 포함 위해)
+    for (idx = 0; idx < 26; idx++) {
+        char alh = 'A' + idx;
+        string tmp(1, alh);
+        dic.insert({ tmp, idx + 1 });
+    }
+
+    int msgLen = msg.length();
+    string w = "";    
+    
+    // 현재 입력과 일치하는 가장 긴 문자열 w 찾기
+    for (int i = 0; i < msgLen; i++) {
+        if (dic.count(w + msg[i]) == 0) {  
+            // w에 해당하는 사전의 색인 번호 출력 및 입력에서 w 제거
+            answer.push_back(dic[w]);            
+            // 입력에서 처리되지 않은 다음 글자가 남아있을 경우 c
+            // w + c에 해당하는 단어 사전에 등록
+            dic.insert({ w + msg[i], ++idx });
+            w = msg[i];
+
+        } else {
+            w += msg[i];
+        } if (i == msgLen - 1) {
+            answer.push_back(dic[w]);
+        }
+    }
+
+    return answer;
+}
