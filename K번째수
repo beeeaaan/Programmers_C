@@ -1,0 +1,22 @@
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+ 
+vector<int> solution(vector<int> array1, vector<vector<int>> commands) {
+    vector<int> answer;
+
+    for (int i = 0; i < commands.size(); i++){
+        vector<int> tmp;  // 임시 벡터 생성
+        
+        // 필요한 부분만 임시벡터에 넣기
+        for (int j = commands[i][0] - 1; j < commands[i][1]; j++)
+            tmp.push_back(array1[j]);
+        
+        sort(tmp.begin(), tmp.end());  // 임시 벡터 정렬
+        // 임시벡터 index번째 answer에 넣기
+        answer.push_back(tmp.at(commands[i][2] - 1));
+    }
+    
+    return answer;
+}
