@@ -1,0 +1,29 @@
+#include <string>
+#include <vector>
+#include <bitset>
+#include <iostream>
+
+using namespace std;
+
+vector<string> solution(int n, vector<int> arr1, vector<int> arr2) {
+    vector<string> answer;
+    int len = 16 - n;
+    
+    // OR 연산 처리
+    for(int i = 0; i < n; i++) {
+        bitset<16> bit(arr1[i] | arr2[i]);
+        string tmp = bit.to_string();
+        string cp = "";
+        
+        for(int j = len; j < tmp.size(); j++)
+            // 1인 경우 '#'
+            if(tmp[j] == '1')
+                cp += '#';
+            // 1이 아닌 경우 ''
+            else
+                cp += ' ';       
+        answer.emplace_back(cp);
+    }
+    
+    return answer;
+}
