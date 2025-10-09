@@ -1,0 +1,50 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+using namespace std;
+
+struct separated_names {
+	string head, ori_Num;
+	int num;
+};
+
+bool cmp(separated_names a, separated_names b) {
+    // head 다른 경우 사전순 정렬
+	if (a.head != b.head)
+		return a.head < b.head;
+    // head 같은 경우 숫자 크기순 정렬
+	else
+		return a.num < b.num;
+}
+
+vector<string> solution(vector<string> files) {
+	vector <separated_names> sepa_Name(files.size());
+    
+	for (int i = 0; i < files.size(); i++) {
+		int j = 0;
+        
+		while (!isdigit(files[i][j])) j++;
+		int k = j;
+        
+		while (isdigit(files[i][k])) {
+			k++;
+            // 최대 5자리까지
+			if (k - j >= 5)
+				break;
+		}
+        
+		sepa_Name[i].ori_Num = files[i];  // 기존 파일명 저장
+		transform(files[i].begin(), files[i].begin() + j, files[i].begin(), ::toupper);  // 대문자로 변환
+		sepa_Name[i].head = files[i].substr(0, j); // 숫자 전까지 string HEAD에 저장
+		sepa_Name[i].num = stoi(files[i].substr(j, k - j));  // 첫 연속된 숫자 num에 저장
+	}
+
+	stable_sort(sepa_Name.begin(), sepa_Name.end(), cmp); // 안정 정렬
+	vector <string> answer;
+	for (int i = 0; i < sepa_Name.size(); i++)
+		answer.push_back(sepa_Name[i].ori_Num);
+
+	return answer;
+}
