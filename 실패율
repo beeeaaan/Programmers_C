@@ -1,0 +1,40 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+bool cmp(pair<double, int> &a, pair<double, int> &b) {
+    // 실패율이 같은 스테이지인 경우
+    if (a.first == b.first) return a.second < b.second;
+    // 작은 번호 스테이지 기준 오름차순 정렬
+    return a.first > b.first;
+}
+
+vector<int> solution(int N, vector<int> stages) {
+    vector<int> answer;
+    vector<pair<double, int>> fail;
+    int noclear_Stage;
+    int noreach_Stage = 0;  // 모두 1 스테이지 도달
+    
+    for (int i = 1 ; i <= N; i++) {
+        int noclear_Stage = count(stages.begin(), stages.end(), i);
+        
+        // 스테이지에 도달한 유저가 없는 경우
+        if (stages.size() == noreach_Stage) {
+            fail.push_back({0, i});
+            continue;
+        }
+        
+        fail.push_back({(double)noclear_Stage / (double)(stages.size() - noreach_Stage), i});
+        noreach_Stage += noclear_Stage;
+    }
+    
+    sort(fail.begin(), fail.end(), cmp);
+    
+    for (int i = 0; i < fail.size(); i++) {
+        answer.push_back(fail[i].second);
+    }
+    
+    return answer;
+}
