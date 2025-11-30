@@ -1,0 +1,55 @@
+#include <string>
+#include <vector>
+#include <map>
+#include <algorithm>
+#include <iostream>
+
+using namespace std;
+
+bool cmp (pair<string, int> a, pair<string, int> b) {
+    return a.second > b.second; 
+}
+
+vector<string> solution(vector<string> orders, vector<int> course) {
+    vector<string> answer;
+    
+    for(int i = 0; i < course.size(); i++) {
+        map <string, int> m;
+        
+        for(int j = 0; j < orders.size(); j++) {
+            string str = orders[j]; 
+            
+            // 주문한 메뉴가 course보다 작은 경우
+            if(course[i] > str.size()) continue; 
+            sort(str.begin(), str.end());             
+            vector <bool> check (str.size(), 0); 
+            
+            for(int k = str.size() - course[i]; k < str.size(); k++) check[k] =1;             
+            do {
+                string str1 = ""; 
+                
+                for(int k = 0; k < str.size(); k++) {
+                    if(check[k])str1 += str[k]; 
+                }
+                m[str1]++; 
+                
+            } while(next_permutation(check.begin(), check.end())); 
+            
+        } if(m.empty()) continue;                
+        vector <pair<string, int>> v(m.begin(), m.end()); 
+        sort(v.begin(), v.end(), cmp); 
+        
+        if(v.begin() -> second == 1) continue; 
+        for (auto x : v)cout<< x.first <<" "<<x.second<<endl; 
+        int compare = v.begin() -> second; 
+        
+        // 제일 큰 값 찾기
+        for(auto x : v) {
+            if(x.second == compare)answer.push_back(x.first); 
+            else break; 
+        }
+    // 알파벳 오름차순 정렬
+    } sort(answer.begin(), answer.end()); 
+    
+    return answer;
+}
