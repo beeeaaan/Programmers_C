@@ -1,0 +1,55 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(vector<int> numbers, string hand) {
+    string answer = "";
+    int left = 10;
+    int right = 12;
+    
+    for (int number: numbers) {
+        // 누를 번호가 1, 4, 7인 경우 왼손 엄지손가락 입력
+        if (number == 1 || number == 4 || number == 7) {
+            answer += 'L';
+            left = number;
+        }        
+
+        // 누를 번호가 3, 6, 9인 경우 오른손 엄지손가락 입력
+        else if (number == 3 || number == 6 || number == 9) {
+            answer += 'R';
+            right = number;
+        }       
+
+        // 누를 번호가 2, 5, 8, 0인 경우 왼손 엄지손가락과 오른손 엄지손가락 거리 비교
+        else {
+            if (number == 0) number = 11; 
+            // 거리 계산 : (엄지손가락 위치 - 누를 번호) / 3 + (엄지손가락 위치 - 누를 번호) % 3
+            int leftDis = abs((left - number) / 3) + abs((left - number) % 3);
+            int rightDis = abs((right - number) / 3) + abs((right - number) % 3);
+            
+            // 거리 다른 경우 더 가까운 엄지손가락 사용
+            if (leftDis < rightDis) {
+                answer += 'L';
+                left = number;       
+
+            // 거리가 같은 경우 hand값에 따라 키패드 누르기
+            } else if (leftDis == rightDis) {
+                if (hand == "left") {
+                    answer += 'L';
+                    left = number;  
+                } else {
+                    answer += 'R';
+                    right = number;
+                }   
+
+            // 오른손이 더 가까운 경우
+            } else {
+                answer += 'R';
+                right = number;
+            }
+        }
+    }
+
+    return answer;
+}
