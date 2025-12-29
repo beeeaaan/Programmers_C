@@ -1,0 +1,48 @@
+#include <string>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+vector<int> solution(string today, vector<string> terms, vector<string> privacies) {
+    // 유효기간 지난 개인정보 항목 번호
+    vector<int> expired_privacies;
+    
+    int today_year = stoi(today.substr(0, 4));  // 년
+    int today_month = stoi(today.substr(5, 2));  // 월
+    int today_day = stoi(today.substr(8));  // 일    
+    int term_duration[30] = {0};  // 각 약관 유효기간 저장(개월 수)
+    
+    for(int i = 0; i < terms.size(); i++) {
+        char term_name = terms[i][0];  // 약관 이름 (A-Z)
+        int due_date = stoi(terms[i].substr(2));  // 약관 유효기간        
+        // 약관 이름 대응하는 인덱스 찾기(유효기간 일 수 개산) 유효기간을 일 수로 계산
+        term_duration[term_name - 'A'] = due_date * 28;  // 1개월(28일 기준)
+    }
+    
+    // today를 '28일 기준' 일 수로 계산
+    long today_in_days = today_year * 12 * 28 + today_month * 28 + today_day;
+    
+    // 개인정보 수집 일자와 약관을 확인하여 만료 여부 판단
+    for(int i = 0; i < privacies.size(); i++) {
+        // 개인정보 수집 일자 (년, 월, 일) 추출
+        int privacy_year = stoi(privacies[i].substr(0, 4));
+        int privacy_month = stoi(privacies[i].substr(5, 2));
+        int privacy_day = stoi(privacies[i].substr(8, 2));        
+        // 개인정보 수집 시 약관의 이름
+        char privacy_term_name = privacies[i][11];       
+        // 개인정보 수집 일자 계산(일 수)
+        long privacy_in_days = privacy_year * 12 * 28 + privacy_month * 28 + privacy_day;        
+        // 오늘 날짜와 개인정보 수집 날짜 차이 비교
+        long days_difference = today_in_days - privacy_in_days;
+        
+        // 약관 유효기간 지난 경우
+        if(days_difference >= term_duration[privacy_term_name - 'A']) {
+            // 만료된 개인정보 항묵 번호 추가
+            expired_privacies.push_back(i + 1);
+        }
+    }
+    
+    // 만료된 개인정보 항목 번호 반환
+    return expired_privacies;
+}
