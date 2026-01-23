@@ -1,0 +1,63 @@
+#include <string>
+#include <vector>
+#include <map>
+#include <set>
+#include <algorithm>
+
+using namespace std;
+
+set<string> id_set;
+
+bool check(string x, string y) {
+    // 길이가 다를 경우 매칭 불가
+    if (x.length() == y.length()) {
+        for (int i = 0; i < x.length(); i++) {
+            // '*' 이거나 같을 경우 통과
+            if (x[i] == '*' || x[i] == y[i]) {
+                continue;
+            }
+            // 하나라도 다를 경우 실패
+            return false;
+        }
+    }
+    else {
+        return false;
+    }
+    return true;
+}
+
+int solution(vector<string> user_id, vector<string> banned_id) {
+    int answer = 0;
+    
+    sort(user_id.begin(), user_id.end());
+
+    do {
+        vector<string> temp;
+        string id = "";
+        
+        for (int i = 0; i < banned_id.size(); i++) {
+            // banned_id와 user_id 인덱스 비교
+            if (check(banned_id[i], user_id[i])) {
+                temp.push_back(user_id[i]);
+            }
+        }
+
+        // 모든 banned_id가 매칭된 경우
+        if (temp.size() == banned_id.size()) {
+            // 중복 제거 위한 정렬
+            sort(temp.begin(), temp.end());
+
+            // 하나의 문자열로 합치기
+            for (const auto& t : temp) {
+                id += t;
+            }
+            id_set.insert(id);
+        }
+
+    } while (next_permutation(user_id.begin(), user_id.end()));
+    
+    // 가능한 조합의 개수
+    answer = id_set.size();
+
+    return answer;
+}
