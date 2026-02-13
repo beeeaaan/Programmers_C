@@ -1,0 +1,57 @@
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <set>
+#include <iostream>
+
+using namespace std;
+
+vector<int> solution(vector<string> gems) {
+    vector<int> answer(2);
+    unordered_map<string, int> cnt;
+    set<string> num(gems.begin(), gems.end());
+    int gemMin, start = 0, end = 0;
+
+    for(auto& s : gems) {
+        cnt[s]++;   
+        // 모든 종류가 채워질 경우 종료
+        if(cnt.size() == num.size())
+            break;
+        // 오른쪽 포인터 이동
+        end++;
+    }
+
+    gemMin = end - start;
+    answer[0] = start + 1;  // 1번 인덱스부터 시작
+    answer[1] = end + 1;
+
+    while(end < gems.size()) {
+        string key = gems[start];
+        cnt[key]--;  // 왼쪽 보석 제거
+        start++;
+
+        // 어떤 종류가 0개가 될 경우
+        if(cnt[key] == 0) {
+            end++;
+
+            for(; end < gems.size(); end++) {
+                cnt[gems[end]]++;
+                // 빠졌던 보석 다시 찾을 경우
+                if(key == gems[end])
+                    break;
+            }
+
+            // 끝까지 간 경우 종료
+            if(end == gems.size()) break;
+        }
+
+        // 더 짧은 구간일 경우 갱신
+        if(gemMin > end - start) {
+            answer[0] = start + 1;
+            answer[1] = end + 1;
+            gemMin = end - start;
+        }
+    }
+
+    return answer;
+}
