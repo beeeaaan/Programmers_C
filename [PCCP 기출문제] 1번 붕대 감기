@@ -1,0 +1,57 @@
+#include <string>
+#include <vector>
+#include <bits/stdc++.h>
+using namespace std;
+
+map<int, int> attackTime;
+
+int solution(vector<int> bandage, int health, vector<vector<int>> attacks) {
+    int answer = 0;
+    int lastTime = 0;
+    int cnt = 0;
+
+    // 몬스터 공격 시간과 피해량
+    for (int i = 0; i < attacks.size(); i++) {
+        attackTime[attacks[i][0]] = attacks[i][1];
+
+        // 마지막 공격 시간
+        if (i == (attacks.size() - 1)) {
+            lastTime = attacks[i][0];
+        }
+    }
+
+    answer = health;
+
+    // 0부터 마지막 공격 시간까지 시뮬레이션을 진행합니다.
+    for (int i = 0; i <= lastTime; i++) {
+        if (attackTime[i] != 0) {
+            answer -= attackTime[i];
+            cnt = 0;
+
+            // 현재 체력이 0 이하일 경우 게임 종료
+            if (answer <= 0) {
+                answer = -1;
+                break;
+            }
+        } else {
+            // 몬스터 공격이 없을 경우, 붕대 감기 기술을 사용
+            if (answer <= health && cnt < bandage[0]) {
+                answer += bandage[1];
+                cnt++;
+
+                // 연속으로 기술 사용할 경우 추가 회복량을 적용
+                if (cnt >= bandage[0]) {
+                    answer += bandage[2];
+                    cnt = 0;
+                }
+            }
+        }
+
+        // 현재 체력이 최대 체력 넘어갈 경우 최대 체력으로 설정
+        if (answer >= health) {
+            answer = health;
+        }
+    }
+
+    return answer;
+}
