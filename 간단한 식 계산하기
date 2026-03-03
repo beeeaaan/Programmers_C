@@ -1,0 +1,25 @@
+#include <string>
+#include <sstream>
+
+using namespace std;
+
+int solution(string binomial) {
+    int a, b;
+    char op;
+    // 공백 기준으로 문자열 나누기
+    stringstream ss(binomial);
+    ss >> a >> op >> b;
+
+    // 계산하기
+    if (op == '+') {
+        return a + b;
+    } 
+    else if (op == '-') {
+        return a - b;
+    } 
+    else if (op == '*') {
+        return a * b;
+    }
+
+    return 0;
+}
