@@ -1,0 +1,21 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+string solution(string my_string) {
+    string answer = my_string;
+    
+    for(int i = 0; i < answer.length(); i++) {
+        for(int j = i + 1; j < answer.length(); j++) {
+            // 중복될 경우 하나만 남기고 제거
+            if(answer[i] == answer[j]) {
+                answer.erase(answer.begin() + j);
+                j--;
+            }
+        }
+    } 
+    
+    return answer;
+}
