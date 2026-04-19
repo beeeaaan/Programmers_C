@@ -1,0 +1,35 @@
+#include <string>
+#include <vector>
+#include <map>
+#include <sstream>
+ 
+using namespace std;
+ 
+string solution(string letter) {
+    string answer = "";   
+
+    // 모스부호 → 알파벳 매핑
+    map<string, string> mp { 
+        {".-","a"},{"-...","b"},{"-.-.","c"},{"-..","d"},
+        {".","e"},{"..-.","f"},{"--.","g"},{"....","h"},
+        {"..","i"},{".---","j"},{"-.-","k"},{".-..","l"},
+        {"--","m"},{"-.","n"},{"---","o"},{".--.","p"},
+        {"--.-","q"},{".-.","r"},{"...","s"},{"-","t"},
+        {"..-","u"},{"...-","v"},{".--","w"},{"-..-","x"},
+        {"-.--","y"},{"--..","z"}
+    };
+    
+    // 문자열을 공백 기준으로 나누기 위한 스트림
+    stringstream mpstream;
+    mpstream.str(letter);       
+    string tmp;
+    
+    // 공백 기준으로 모스부호 하나씩 꺼내기
+    while(mpstream >> tmp) {
+        // 해당 모스부호를 알파벳으로 변환 후 이어붙이기
+        answer += mp.find(tmp)->second;
+    }
+    
+    // 완성된 문자열 반환
+    return answer;
+}
