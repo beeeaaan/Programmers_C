@@ -1,0 +1,18 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(int n) {
+    int x = 1;
+    int factorial = 1;
+
+    // 다음 숫자 곱할 떄 n 넘지 않는지 미리 확인
+    while (factorial * (x + 1) <= n) {
+        x++;
+        factorial *= x;
+    }
+
+    // n 이하 최대 팩토리얼 만드는 x 반환
+    return x;
+}
