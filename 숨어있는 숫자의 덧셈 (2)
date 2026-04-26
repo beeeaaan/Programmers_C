@@ -1,0 +1,21 @@
+#include <string>
+#include <sstream>
+
+using namespace std;
+
+int solution(string my_string) {
+    // 숫자 아닌 모든 문자 공백(' ')으로 치환
+    for (char &c : my_string) {
+        if (!isdigit(c)) c = ' ';
+    }
+
+    int answer = 0, num;
+    stringstream ss(my_string);
+
+    // 공백 기준으로 숫자만 뽑아서 합산
+    while (ss >> num) {
+        answer += num;
+    }
+
+    return answer;
+}
