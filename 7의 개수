@@ -1,0 +1,20 @@
+#include <vector>
+
+using namespace std;
+
+int solution(vector<int> array) {
+    int answer = 0;
+    
+    for (int num : array) {
+        while (num > 0) {
+            // 10으로 나눈 나머지가 7일 경우 1 증가
+            if (num % 10 == 7) {
+                answer++;
+            }
+            // 10으로 나누어 자릿수 제거 후 다음 자릿수 이동
+            num /= 10;
+        }
+    }
+    
+    return answer;
+}
