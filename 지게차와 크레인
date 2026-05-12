@@ -1,0 +1,89 @@
+#include <string>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+int solution(vector<string> storage, vector<string> requests) {
+    int n = storage.size();
+    int m = storage[0].size();
+    // 상하좌우 탐색용
+    int dy[] = {-1, 1, 0, 0};
+    int dx[] = {0, 0, -1, 1};
+
+    for (string req : requests) {
+        char target = req[0];
+        vector<pair<int, int>> to_remove;
+
+        if (req.length() == 1) { // 지게차 작업
+            // 현재 외부 연결된 빈 공간(접근 가능 구역) 찾기
+            vector<vector<bool>> accessible(n, vector<bool>(m, false));
+            queue<pair<int, int>> q;
+            
+            // 큐에 삽입(테두리의 빈 공간)
+            for(int i = 0; i < n; i++) {
+                for(int j = 0; j < m; j++) {
+                    if((i == 0 || i == n-1 || j == 0 || j == m-1) && storage[i][j] == '.') {
+                        accessible[i][j] = true;
+                        q.push({i, j});
+                    }
+                }
+            }
+
+            // BFS로 외부 통하는 모든 빈 공간 탐색
+            while(!q.empty()){
+                pair<int, int> curr = q.front(); q.pop();
+                for(int i = 0; i < 4; i++) {
+                    int ny = curr.first + dy[i];
+                    int nx = curr.second + dx[i];
+                    if(ny >= 0 && ny < n && nx >= 0 && nx < m && !accessible[ny][nx] && storage[ny][nx] == '.') {
+                        accessible[ny][nx] = true;
+                        q.push({ny, nx});
+                    }
+                }
+            }
+
+            // 제거 대상 탐색 (1.테두리에 있거나 2. 접근 가능 구역과 인접한 경우)
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    if (storage[i][j] == target) {
+                        bool can_reach = false;
+                        
+                        // 테두리 그 자체인 경우
+                        if (i == 0 || i == n - 1 || j == 0 || j == m - 1) can_reach = true;
+                        // 인접한 곳에 외부 연결 빈 공간 있는지 확인
+                        else {
+                            for (int k = 0; k < 4; k++) {
+                                if (accessible[i + dy[k]][j + dx[k]]) {
+                                    can_reach = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (can_reach) to_remove.push_back({i, j});
+                    }
+                }
+            }
+        // 크레인 작업 : 전체에서 해당 문자 모두 제거
+        } else {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    if (storage[i][j] == target) to_remove.push_back({i, j});
+                }
+            }
+        }
+
+        // '.' 변경(제거 처리)
+        for (auto p : to_remove) storage[p.first][p.second] = '.';
+    }
+
+    // 남은 컨테이너 개수 계산
+    int answer = 0;
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (storage[i][j] != '.') answer++;
+        }
+    }
+    return answer;
+}
