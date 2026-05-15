@@ -1,0 +1,27 @@
+#include <string>
+#include <vector>
+#include <sstream>
+
+using namespace std;
+
+int solution(string s) {
+    int answer = 0;
+    int last_num = 0;
+    
+    stringstream ss(s);
+    string token;
+    
+    // 공백을 기준으로 문자열을 하나씩 읽음
+    while (ss >> token) {
+        // "Z" 나올 경우 직전 더한 숫자 빼기
+        if (token == "Z") {
+            answer -= last_num;
+        // 숫자 나올 경우 정수 변환하여 더하기
+        } else {
+            last_num = stoi(token);
+            answer += last_num;
+        }
+    }
+    
+    return answer;
+}
