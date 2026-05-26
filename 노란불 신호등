@@ -1,0 +1,57 @@
+#include <vector>
+#include <numeric>
+
+using namespace std;
+
+// 두 수 최대공약수(GCD)를 구하는 함수
+long long get_gcd(long long a, long long b) {
+    while (b != 0) {
+        long long r = a % b;
+        a = b;
+        b = r;
+    }
+    return a;
+}
+
+// 두 수의 최소공배수(LCM)를 구하는 함수
+long long get_lcm(long long a, long long b) {
+    return (a * b) / get_gcd(a, b);
+}
+
+int solution(vector<vector<int>> signals) {
+    long long max_time = 1;
+    
+    // 최대 탐색 시간 설정(최소공배수)
+    for (const auto& signal : signals) {
+        long long cycle = signal[0] + signal[1] + signal[2];  // G + Y + R
+        max_time = get_lcm(max_time, cycle);
+    }
+    
+    for (long long t = 1; t <= max_time; ++t) {
+        bool all_yellow = true;
+        
+        for (const auto& signal : signals) {
+            int g = signal[0];
+            int y = signal[1];
+            int r = signal[2];
+            int cycle = g + y + r;            
+            int remain = t % cycle;  // t를 주기 내부 시간으로 변환
+                
+            if (remain == 0) remain = cycle; 
+            
+            // 하나라도 노란불 아닐 경우 탈출
+            if (!(remain > g && remain <= g + y)) {
+                all_yellow = false;
+                break;
+            }
+        }
+        
+        // 모든 신호등이 동시에 노란불을 켤 경우 현재 시각 반환
+        if (all_yellow) {
+            return t;
+        }
+    }
+    
+    // 최소공배수 주기동안 조건 만족하는 시각 없을 경우 -1
+    return -1;
+}
