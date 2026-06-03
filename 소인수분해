@@ -1,0 +1,25 @@
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(int n) {
+    vector<int> answer;
+    int d = 2; // 2부터 시작(가장 작은 소수)
+    
+    while (d <= n) {
+        // 나누어 떨어질 경우 소인수
+        if (n % d == 0) {
+            // 기존에 넣은 마지막 소인수와 다를 경우만 추가(중복 방지)
+            if (answer.empty() || answer.back() != d) {
+                answer.push_back(d);
+            }
+            // n을 d로 나눈 몫 갱신
+            n /= d;
+        // 나누어 떨어지지 않을 경우 다음 숫자 이동
+        } else {
+            d++;
+        }
+    }
+    
+    return answer;
+}
