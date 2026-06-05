@@ -1,0 +1,66 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int answer = 0;
+int total_n;
+vector<vector<int>> queries;
+vector<int> answers;
+
+// 현재 조합이 모든 질문, 답변 조건 만족하는지 검사하는 함수
+bool isValid(const vector<int>& comb) {
+    for (size_t i = 0; i < queries.size(); ++i) {
+        int match_count = 0;
+        
+        // 현재 만든 조합(comb)의 숫자 중 몇 개가 쿼리에 포함되는지 카운트
+        for (int num : comb) {
+            // 크기 항상 5
+            for (int q_num : queries[i]) {
+                if (num == q_num) {
+                    match_count++;
+                    break;
+                }
+            }
+        }
+        
+        // 일치하는 개수가 시스템이 답해준 개수와 다를 경우 탈락
+        if (match_count != answers[i]) {
+            return false;
+        }
+    }
+    // 모든 조건 통과하면 유효한 비밀 코드 조합
+    return true;
+}
+
+// 1부터 n까지의 숫자 중 5개를 뽑는 조합 생성(백트래킹)
+void dfs(int start, vector<int>& comb) {
+    // 5개의 숫자 모두 뽑았을 경우
+    if (comb.size() == 5) {
+        // 조건 만족할 경우 정답 카운트 증가
+        if (isValid(comb)) {
+            answer++;
+        }
+        return;
+    }
+    
+    // 오름차순으로 중복 없이 조합을 만들기
+    for (int i = start; i <= total_n; ++i) {
+        comb.push_back(i);  // 숫자 선택
+        dfs(i + 1, comb);  // 재귀 호출(다음 숫자 선택)
+        comb.pop_back();  // 되돌리기(백트래킹)
+    }
+}
+
+int solution(int n, vector<vector<int>> q, vector<int> ans) {
+    answer = 0;
+    total_n = n;
+    queries = q;
+    answers = ans;
+    
+    vector<int> comb;
+    // 1번 숫자부터 선택 시작
+    dfs(1, comb);
+    
+    return answer;
+}
