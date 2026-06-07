@@ -1,0 +1,18 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+string solution(string my_string, vector<vector<int>> queries) {
+    // 각 쿼리 [시작, 끝] 인덱스 하나씩 가져오기
+    for (const auto& query : queries) {
+        int s = query[0];
+        int e = query[1];
+        
+        // s 인덱스부터 e 인덱스까지 문자열 뒤집기(e + 1 주의)
+        reverse(my_string.begin() + s, my_string.begin() + e + 1);
+    }
+    
+    return my_string;
+}
