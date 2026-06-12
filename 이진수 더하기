@@ -1,0 +1,38 @@
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+string solution(string bin1, string bin2) {
+    string answer = "";    
+    int i = bin1.length() - 1;
+    int j = bin2.length() - 1;
+    int carry = 0;
+
+    // 두 문자열 중 하나라도 남았거나, 더해야 할 올림수가 남아있는 동안 반복
+    while (i >= 0 || j >= 0 || carry > 0) {
+        int sum = carry;  // 이번 자릿수의 합에 이전 올림수를 먼저 더함
+
+        // bin1 현재 자릿수 더하기(문자 '0' 또는 '1' 숫자로 변환)
+        if (i >= 0) {
+            sum += bin1[i] - '0';
+            i--;
+        }
+        // bin2의 현재 자릿수 더하기
+        if (j >= 0) {
+            sum += bin2[j] - '0';
+            j--;
+        }
+
+        carry = sum / 2;  // 다음 자릿수 넘겨줄 올림수(2 이상이면 1이 됨)
+        int remainder = sum % 2;  // 현재 자릿수 남을 나머지(0 또는 1)
+
+        // 나머지를 문자로 바꿔 정답 문자열 뒤에 추가
+        answer += to_string(remainder);
+    }
+
+    // 역순 저장되었으므로 올바른 순서로 뒤집기
+    reverse(answer.begin(), answer.end());
+
+    return answer;
+}
